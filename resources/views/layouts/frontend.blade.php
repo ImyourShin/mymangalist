@@ -119,15 +119,9 @@
                                 {{ auth()->user()->username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('profile.show') }}">👤 My Profile</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('favorites.my') }}">⭐ My Favorites</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">⚙️ Edit Profile</a>
-                                </li>
+                                <li><a class="dropdown-item" href="{{ route('profile.show') }}">👤 My Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('favorites.my') }}">⭐ My Favorites</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">⚙️ Edit Profile</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -139,7 +133,16 @@
                                 </li>
                             </ul>
                         </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="btn btn-light me-2">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="btn btn-warning">Sign Up</a>
+                        </li>
                     @endauth
+                </ul>
+
 
                 </ul>
             </div>
