@@ -12,11 +12,11 @@ class HomeController extends Controller
     public function index()
     {
 
-        SiteVisit::create([
-            'ip_address' => request()->ip(),
-            'url'        => request()->fullUrl(),
-            'user_agent' => request()->userAgent(),
-        ]);
+        // SiteVisit::create([
+        //     'ip_address' => request()->ip(),
+        //     'url'        => request()->fullUrl(),
+        //     'user_agent' => request()->userAgent(),
+        // ]);
         $popularManga = MangaModel::orderBy('release_year', 'desc')
             ->limit(8)
             ->get();
