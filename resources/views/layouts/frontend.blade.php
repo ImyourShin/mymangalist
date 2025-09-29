@@ -573,6 +573,7 @@
     </style>
 
     @yield('css_before')
+    @stack('styles')
 </head>
 
 <body>
@@ -864,6 +865,7 @@
     </script>
 
     @yield('js_before')
+    @stack('scripts')
 </body>
 
 </html>

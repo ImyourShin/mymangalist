@@ -29,12 +29,12 @@ class MangaController extends Controller
     {
         $manga = MangaModel::with('reviews.user')->findOrFail($id);
 
-        MangaVisit::create([
-            'manga_id'   => $manga->manga_id,
-            'ip_address' => request()->ip(),
-            'url'        => request()->fullUrl(),
-            'user_agent' => request()->userAgent(),
-        ]);
+        // MangaVisit::create([
+        //     'manga_id'   => $manga->manga_id,
+        //     'ip_address' => request()->ip(),
+        //     'url'        => request()->fullUrl(),
+        //     'user_agent' => request()->userAgent(),
+        // ]);
 
         $isFavorite = false;
         if (Auth::check()) {
@@ -78,7 +78,7 @@ class MangaController extends Controller
         }
 
         // ✅ Pagination
-        $mangaList = $query->orderBy('manga_id', 'desc')->paginate(12);
+        $mangaList = $query->orderBy('manga_id', 'desc')->paginate(9);
 
         // ✅ Data สำหรับ Sidebar
         $genres = MangaModel::select('genre')
