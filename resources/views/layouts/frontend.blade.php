@@ -91,6 +91,15 @@
             position: relative;
         }
 
+        .brand-logo img {
+            height: 72px;
+            /* ปรับตามใจ เช่น 24px, 40px */
+            width: auto;
+            /* ให้สัดส่วนรูปไม่เพี้ยน */
+            margin-right: 9px;
+        }
+
+
         .navbar-brand:hover {
             transform: scale(1.01);
             color: var(--text-primary) !important;
