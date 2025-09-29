@@ -12,7 +12,7 @@
     <style>
       :root{
         --bg-900:#0d0d0d;         /* sidebar panel */
-        --bg-800:#111111;         /* page background */
+        --bg-800:#1c1c1c;;         /* page background */
         --bg-700:#1a1a1a;         /* cards */
         --text-100:#f5f5f7;       /* white */
         --text-70:#b3b3b3;        /* muted */
