@@ -11,18 +11,17 @@ class HomeController extends Controller
 {
     public function index()
     {
-
-        // SiteVisit::create([
-        //     'ip_address' => request()->ip(),
-        //     'url'        => request()->fullUrl(),
-        //     'user_agent' => request()->userAgent(),
-        // ]);
-        $popularManga = MangaModel::orderBy('release_year', 'desc')
-            ->limit(8)
+        // 📌 Popular Manga: ดึง manga ที่มีค่าเฉลี่ย rating สูงสุด
+        $popularManga = MangaModel::withAvg('reviews', 'rating')
+            ->orderByDesc('reviews_avg_rating')
+            ->take(8)
             ->get();
 
+        // 📌 Latest Releases: ดึง manga ล่าสุดตาม release_year
+        $latestManga = MangaModel::orderByDesc('release_year')
+            ->take(8)
+            ->get();
 
-
-        return view('frontend.home', compact('popularManga'));
+        return view('frontend.home', compact('popularManga', 'latestManga'));
     }
 }
