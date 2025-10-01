@@ -109,7 +109,7 @@
             <label class="col-sm-2"></label>
             <div class="col-sm-5">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/manga" class="btn btn-danger">Cancel</a>
+                <a href="{{ route('admin.manga.list') }}" class="btn btn-danger">Cancel</a>
             </div>
         </div>
     </form>
