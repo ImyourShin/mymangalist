@@ -17,7 +17,7 @@ class ReviewController extends Controller
         Paginator::useBootstrap();
         $reviewList = ReviewModel::with(['user', 'manga'])
             ->orderBy('review_id', 'desc')
-            ->paginate(10);
+            ->paginate(8);
 
         return view('admin.reviews.list', compact('reviewList'));
     }

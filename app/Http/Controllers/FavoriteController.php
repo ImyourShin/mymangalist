@@ -18,7 +18,7 @@ class FavoriteController extends Controller
         Paginator::useBootstrap();
         $favoriteList = FavoriteModel::with(['user', 'manga'])
             ->orderBy('favorite_id', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('admin.favorites.list', compact('favoriteList'));
     }

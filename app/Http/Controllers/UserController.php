@@ -9,13 +9,14 @@ use App\Models\UserModel;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 
+
 class UserController extends Controller
 {
     // แสดง Users ทั้งหมด
     public function index()
     {
         Paginator::useBootstrap();
-        $userList = UserModel::orderBy('user_id', 'desc')->paginate(10);
+        $userList = UserModel::orderBy('user_id', 'desc')->paginate(5);
         return view('admin.users.list', compact('userList'));
     }
 
