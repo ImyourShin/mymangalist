@@ -11,9 +11,9 @@
     <!-- ==== Dark Admin Theme Styles (no variables/yields renamed) ==== -->
     <style>
       :root{
-        --bg-900:#0d0d0d;         /* sidebar panel */
-        --bg-800:#1c1c1c;;         /* page background */
-        --bg-700:#1a1a1a;         /* cards */
+        --bg-900:#0d0d0d;        /* sidebar panel */
+        --bg-800:#1c1c1c;        /* page background */
+        --bg-700:#1c1c1c;        /* cards */
         --text-100:#f5f5f7;       /* white */
         --text-70:#b3b3b3;        /* muted */
         --accent:#FF4C00;         /* orange */
@@ -23,14 +23,14 @@
         --radius:12px;
       }
 
-      html, body{ background: radial-gradient(1200px 1200px at 20% -10%, #171717, var(--bg-800)) fixed; color:var(--text-100); }
+      html, body{ background: var(--bg-800) fixed; color:var(--text-100); }
       a{ text-decoration:none; }
 
       /* Layout containers */
       .admin-wrap{ max-width: 1320px; margin: 0 auto; }
       .admin-row{ gap: 0; }
       .sidebar-col{ background:var(--bg-900); border-radius: var(--radius); box-shadow: var(--shadow-soft); position:sticky; top:16px; height:calc(100vh - 32px); overflow: hidden; padding: 0; }
-      .content-col{ padding-left: 20px; }
+      .content-col{ padding-left: 30px; }
 
       /* Header Card (replaces old alert) */
       .dash-header{
@@ -63,22 +63,61 @@
         display:flex; align-items:center; gap:10px;
         transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
       }
-      .menu .list-group-item .ico{ width:26px; height:26px; display:grid; place-items:center; background:rgba(255,255,255,.04); border-radius:8px; font-size:14px; }
+      
       .menu .list-group-item:hover{
         border-color: var(--accent);
         box-shadow: 0 0 0 3px var(--accent-20);
         color: #FF4C00;
         transform: translateY(-1px);
       }
+
+      .menu .list-group-item .ico {
+        width: 26px;
+        height: 26px;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,.04); /* พื้นหลังวง */
+        border-radius: 8px;               /* มุมโค้ง */
+        margin-right: 8px;
+        transition: 0.25s ease;
+      }
+
+      .menu .list-group-item .ico img {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);  /* ให้เป็นโทนขาว */
+        transition: 0.25s ease;
+      }
+
+      /* เมื่อเมนู active */
+      .menu .list-group-item.active .ico {
+        background: var(--accent);  /* พื้นหลังส้ม */
+      }
+      .menu .list-group-item.active .ico img {
+        filter: none;               /* ให้โชว์สีจริงของรูป */
+      }
+
+      /* hover menu */
+      .menu .list-group-item:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-20);
+        color: var(--accent);
+        transform: translateY(-1px);
+      }
+      .menu .list-group-item:hover .ico {
+        background: rgba(255,76,0,.2);
+      }
+
       .menu .list-group-item.active{
         background: linear-gradient(180deg, rgba(255,76,0,.18), rgba(255,76,0,.12));
         border-color: var(--accent);
         color: #FF4C00; font-weight:700;
       }
-      .menu .list-group-item.active .ico{ background: var(--accent); color:#000; font-weight:700; }
+      
 
       .side-footer{
-        margin-top:auto; border-top:1px solid var(--border-soft); padding:12px 14px;
+        margin-top:14px;  
       }
       .admin-mini{
         display:flex; align-items:center; gap:10px;
@@ -91,14 +130,39 @@
       }
       .admin-mini .meta small{ color:var(--text-70); display:block; line-height:1.1; }
 
-      .btn-logout{
-        width:100%; border:none;
+      .btn-logout {
+        width:40%;
+        border:none;
         background: linear-gradient(180deg, var(--accent), #ff6b2a);
-        color:#000; font-weight:700; border-radius:999px; padding:10px 14px;
-        box-shadow: 0 8px 20px rgba(255,76,0,.35);
+        color:var(--text-100);
+        font-weight:700;
+        border-radius:999px;
+        padding:10px 14px;
+        display:flex;
+        align-items:center;
+        gap:8px; /* ระยะห่าง icon กับข้อความ */
         transition: transform .12s ease, box-shadow .2s ease, opacity .2s ease;
       }
-      .btn-logout:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(255,76,0,.45); opacity:.95; }
+
+      .btn-logout:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 6px rgba(255,76,0,.45);
+        opacity:.95;
+      }
+
+      .btn-logout .ico {
+        width:22px;
+        height:22px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .btn-logout .ico img {
+        width:100%;
+        height:100%;
+        object-fit:contain;
+      }
 
       /* Content Area & Cards */
       .card-dark{
@@ -142,34 +206,40 @@
         .content-col{ padding-left: 0; margin-top:12px; }
         .sidebar-col{ height:auto; position:static; }
       }
+
+      .menu-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        background: rgba(255,76,0,.12);      /* พื้นหลังวงกลม */
+        border: 2px solid #FF4C00;           /* ขอบรอบวงกลม */
+        box-shadow: 0 0 6px rgba(255,76,0,.4); /* glow เล็กน้อย */
+      }
+
+      .menu-icon img {
+        width:26px; 
+        height:26px;
+        
+      }
+
     </style>
+
+    
 
     @yield('css_before')
 </head>
 
 <body>
 
-    <div class="container admin-wrap mt-3">
-        <div class="row">
-            <div class="col">
-                <!-- Replaced Bootstrap alert with styled header card -->
-                <div class="dash-header d-flex align-items-center justify-content-between">
-                    <div>
-                        <h4>Back Office | MyMangaList | Welcome Admin</h4>
-                        <div class="dash-sub">Control panel • Manage manga, users, reviews & favorites</div>
-                    </div>
-                    <!-- Mobile sidebar toggle (Bootstrap collapse uses data attributes, no variable changes) -->
-                    <button class="btn btn-sm btn-outline-light d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        ☰ Menu
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     @yield('header')
 
-    <div class="container admin-wrap mt-3">
+    <div class="container admin-wrap mt-4">
         <div class="row admin-row">
             <!-- Sidebar -->
             <div class="col-md-3 sidebar-col">
@@ -181,49 +251,58 @@
 
                     <div class="menu collapse d-md-block" id="sidebarCollapse">
                         <div class="list-group d-flex flex-column">
-                            <a href="/" 
-                            class="list-group-item list-group-item-action {{ request()->is('/') ? 'active' : '' }}">
-                                <span class="ico">🏠</span> Home
-                            </a>
-
+                            
                             <a href="/admin/dashboard" 
-                            class="list-group-item list-group-item-action {{ request()->is('admin/dashboard') ? 'active' : '' }}">
-                                <span class="ico">📊</span> Dashboard
+                              class="list-group-item list-group-item-action {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                              <span class="ico">
+                                <img src="/images/icons/DashBoard/DashBoard.png" alt="Dashboard" >
+                              </span>
+                                Dashboard
                             </a>
 
                             <a href="/admin/manga" 
-                            class="list-group-item list-group-item-action {{ request()->is('admin/manga*') ? 'active' : '' }}">
-                                <span class="ico">📚</span> Manga
+                              class="list-group-item list-group-item-action {{ request()->is('admin/manga*') ? 'active' : '' }}">
+                                <span class="ico">
+                                    <img src="/images/icons/DashBoard/Book.png" alt="Manga">
+                                </span>
+                                Manga
                             </a>
 
                             <a href="/admin/users" 
                             class="list-group-item list-group-item-action {{ request()->is('admin/users*') ? 'active' : '' }}">
-                                <span class="ico">👤</span> Users
+                                <span class="ico">
+                                  <img src="/images/icons/DashBoard/User.png" alt="Manga">
+                                </span> 
+                                  Users
                             </a>
 
                             <a href="/admin/reviews" 
                             class="list-group-item list-group-item-action {{ request()->is('admin/reviews*') ? 'active' : '' }}">
-                                <span class="ico">💬</span> Reviews
+                                <span class="ico">
+                                  <img src="/images/icons/DashBoard/Comment.png" alt="Manga">
+                                </span> 
+                                Reviews
                             </a>
 
                             <a href="/admin/favorites" 
                             class="list-group-item list-group-item-action {{ request()->is('admin/favorites*') ? 'active' : '' }}">
-                                <span class="ico">⭐</span> Favorites
+                                <span class="ico">
+                                  <img src="/images/icons/DashBoard/Star.png" alt="Manga">
+                                </span> 
+                                Favorites
                             </a>
                         </div>
 
                         @yield('sidebarMenu')
 
                         <div class="side-footer">
-                            <div class="admin-mini">
-                                <div class="avatar">A</div>
-                                <div class="meta">
-                                    <strong>Admin</strong>
-                                    <small>admin@mymangalist</small>
-                                </div>
-                            </div>
-                            <button class="btn-logout">Logout</button>
-                        </div>
+                          <a href="/" class="btn-logout {{ request()->is('/') ? 'active' : '' }}">
+                              <span class="ico">
+                                  <img src="/images/Home.png" alt="Home">
+                              </span>
+                              Home
+                          </a>
+                      </div>
                     </div>
                 </div>
             </div>

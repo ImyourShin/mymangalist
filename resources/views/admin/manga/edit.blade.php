@@ -24,7 +24,7 @@ body {
   font-family: var(--font);
   font-size: 15px;
   line-height: 1.6;
-  background: var(--bg-900);
+  
   color: var(--text-100);
 }
 
@@ -226,7 +226,7 @@ form img {
             <label class="col-sm-2"></label>
             <div class="col-sm-5">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/manga" class="btn btn-danger">Cancel</a>
+                <a href="{{ route('admin.manga.list') }}" class="btn btn-danger">Cancel</a>
             </div>
         </div>
     </form>

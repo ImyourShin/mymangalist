@@ -7,8 +7,8 @@
   /* --bg-800:#1a1a1a; */
   --bg-800:#1c1c1c;;
   --text-100:#f5f5f7;
-  --text-70:#b3b3b3;
-  --accent:#FF4C00;
+  --text-70:#b3b3b3     ;
+  --accent:#FF4C00;  
   --danger:#d33;
   --radius:14px;
   --shadow-soft:0 6px 20px rgba(0,0,0,.45);

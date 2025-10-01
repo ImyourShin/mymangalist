@@ -224,6 +224,8 @@
                 <div class="bg-secondary text-center p-5 rounded">No Image</div>
             @endif
 
+            <br>
+
             {{-- Favorite Button --}}
             @auth
                 <button id="favorite-btn" data-manga="{{ $manga->manga_id }}" 
@@ -236,6 +238,7 @@
                 class="btn btn-warning mt-3 float-start">⭐ Add to Favorite</a>
             @endauth
         </div>
+        
 
         <!-- Info -->
         <div class="col-md-8">
