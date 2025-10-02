@@ -11,7 +11,7 @@
     --glass: rgba(255,255,255,.04);
     --white: #ffffff;
     --muted: #a6a6a6;
-    --accent: #FF4C00;
+    --accent: #ff6b47;
     --shadow: 0 10px 30px rgba(0,0,0,.45);
     --radius: 16px;
     }
@@ -39,7 +39,7 @@
     .section-header {
         font-weight: bold;
         padding: 10px 16px;
-        border-left: 5px solid #FF4C00;
+        border-left: 5px solid #ff6b47;
         background: rgba(26, 26, 26, 0.9);
         backdrop-filter: blur(6px);
         border-radius: 8px;
@@ -49,7 +49,7 @@
 
     /* Buttons */
     .btn-orange {
-        background: #FF4C00;
+        background: #ff6b47;
         border: none;
         border-radius: 30px;
         padding: 10px 22px;
@@ -59,11 +59,11 @@
     }
     .btn-orange:hover,
     .btn-warning:hover {
-        box-shadow: 0 0 12px #FF4C00;
+        box-shadow: 0 0 12px #ff6b47;
         transform: scale(1.05);
     }
     .btn-warning {
-        background: #FF4C00;
+        background: #ff6b47;
         border: none;
         color: #fff;
         border-radius: 30px !important;
@@ -86,7 +86,7 @@
     /* Tags */
     .tag-pill {
         display: inline-block;
-        background: #FF4C00;
+        background: #ff6b47;
         color: white;
         border-radius: 20px;
         padding: 4px 12px;
@@ -98,7 +98,7 @@
     /* Stars */
     .star {
         font-size: 1.2rem;
-        color: #FF4C00;
+        color: #ff6b47;
         cursor: pointer;
     }
     .star.inactive { color: #555; }
@@ -136,7 +136,7 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: #FF4C00;
+    background: #ff6b47;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,7 +158,7 @@
 }
 .review-stars .star {
     font-size: 1rem;
-    color: #FF4C00;
+    color: #ff6b47;
 }
 .review-stars .inactive {
     color: #555;

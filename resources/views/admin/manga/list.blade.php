@@ -14,7 +14,7 @@
   --bg-700:#1a1a1a;
   --text-100:#f5f5f7;
   --text-70:#b3b3b3;
-  --accent:#FF4C00;
+  --accent:#ff6b47;
   --danger:#d33;
   --radius:14px;
   --shadow-soft:0 6px 20px rgba(0,0,0,.45);
@@ -55,8 +55,8 @@ h3 a.btn {
   transition: 0.25s ease;
 }
 h3 a.btn:hover {
-  background: #ff6320;
-  box-shadow: 0 0 10px rgba(255,76,0,.6);
+  background: #ff6b47;
+  box-shadow: 0 0 10px #ff8e53;
 }
 
 /* ===== Table ===== */

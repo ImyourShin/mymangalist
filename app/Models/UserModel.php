@@ -28,4 +28,25 @@ class UserModel extends Authenticatable
         'password',
         'remember_token',
     ];
+    
+    public function favorites()
+    {
+        return $this->hasMany(FavoriteModel::class, 'user_id', 'user_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ReviewModel::class, 'user_id', 'user_id');
+    }
+
+    /* ========== ACCESSORS ========== */
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites()->count();
+    }
+
+    public function getReviewsCountAttribute()
+    {
+        return $this->reviews()->count();
+    }
 }
