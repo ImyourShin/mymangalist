@@ -7,18 +7,18 @@
 
 
 @section('css_before')
-<style>
-:root {
-  --bg-900:#0d0d0d;
-  --bg-800:#1c1c1c;
-  --bg-700:#1a1a1a;
-  --text-100:#f5f5f7;
-  --text-70:#b3b3b3;
-  --accent:#ff6b47;
-  --danger:#d33;
-  --radius:14px;
-  --shadow-soft:0 6px 20px rgba(0,0,0,.45);
-}
+    <style>
+        :root {
+            --bg-900: #0d0d0d;
+            --bg-800: #1c1c1c;
+            --bg-700: #1a1a1a;
+            --text-100: #f5f5f7;
+            --text-70: #b3b3b3;
+            --accent: #ff6b47;
+            --danger: #d33;
+            --radius: 14px;
+            --shadow-soft: 0 6px 20px rgba(0, 0, 0, .45);
+        }
 
         /* Force Dark Theme for Table */
         .table,
@@ -30,34 +30,36 @@
             border-color: rgba(255, 255, 255, .08) !important;
         }
 
-/* ===== Page Title ===== */
-h3 {
-  color: var(--text-100);
-  text-transform:uppercase ; 
-  font-weight: 700;
-  font-size: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1rem;
-  background: var(--bg-800);
-  border-left: 6px solid var(--accent);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-h3 a.btn {
-  background: var(--accent);
-  border: none;
-  border-radius: 999px;
-  padding: 6px 18px;
-  font-weight: 600;
-  transition: 0.25s ease;
-}
-h3 a.btn:hover {
-  background: #ff6b47;
-  box-shadow: 0 0 10px #ff8e53;
-}
+        /* ===== Page Title ===== */
+        h3 {
+            color: var(--text-100);
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--bg-800);
+            border-left: 6px solid var(--accent);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h3 a.btn {
+            background: var(--accent);
+            border: none;
+            border-radius: 999px;
+            padding: 6px 18px;
+            font-weight: 600;
+            transition: 0.25s ease;
+        }
+
+        h3 a.btn:hover {
+            background: #ff6b47;
+            box-shadow: 0 0 10px #ff8e53;
+        }
 
         h3 a.btn {
             background: var(--accent);
