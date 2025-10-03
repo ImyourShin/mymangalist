@@ -807,12 +807,15 @@
 
         @media (max-width: 576px) {
             .manga-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+                grid-template-columns: 1fr;
+                /* เปลี่ยนเป็น 1 คอลัมน์ */
+                gap: 24px;
+                padding: 0 12px;
             }
 
             .card-thumbnail {
-                height: 240px;
+                height: 200px;
+                /* ลดความสูงลงเพื่อให้เหมาะกับหน้าจอ */
             }
 
             .card-content {
@@ -820,7 +823,126 @@
             }
 
             .card-title {
+                font-size: 1.1rem;
+                min-height: auto;
+                margin-bottom: 8px;
+                -webkit-line-clamp: 1;
+                /* แสดงเพียง 1 บรรทัด */
+            }
+
+            .info-row {
+                font-size: 0.85rem;
+                margin-bottom: 6px;
+            }
+
+            .genre-badges {
+                gap: 4px;
+            }
+
+            .genre-badge {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+            }
+
+            .rating-display {
+                font-size: 0.85rem;
+                margin-bottom: 16px;
+            }
+
+            .stars {
+                font-size: 0.9rem;
+            }
+
+            .btn-detail {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .btn-favorite {
+                width: 42px;
+                height: 42px;
+            }
+
+            /* ปรับ spacing ทั้งหมด */
+            .card-info {
+                margin-bottom: 12px;
+            }
+
+            .card-meta {
+                margin-bottom: 12px;
+            }
+
+            /* เพิ่ม animation ที่นุ่มนวลขึ้น */
+            .manga-card {
+                animation-duration: 0.4s;
+            }
+
+            /* ปรับ hover effects */
+            .manga-card:hover {
+                transform: translateY(-8px);
+                /* ลดระยะการเลื่อนขึ้น */
+            }
+
+            /* ปรับขนาด badge */
+            .manga-badge {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+        }
+
+        /* เพิ่ม breakpoint สำหรับหน้าจอขนาดเล็กมาก */
+        @media (max-width: 360px) {
+            .manga-grid {
+                gap: 16px;
+            }
+
+            .card-thumbnail {
+                height: 180px;
+            }
+
+            .card-content {
+                padding: 12px;
+            }
+
+            .card-title {
                 font-size: 1rem;
+            }
+
+            .info-row {
+                font-size: 0.8rem;
+            }
+
+            .btn-detail {
+                padding: 8px 12px;
+            }
+
+            .btn-favorite {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        /* ปรับ layout สำหรับ tablet */
+        @media (min-width: 577px) and (max-width: 768px) {
+            .manga-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .card-thumbnail {
+                height: 260px;
+            }
+        }
+
+        /* ปรับ layout สำหรับ tablet แนวนอน */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .manga-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+
+            .card-thumbnail {
+                height: 300px;
             }
         }
     </style>
