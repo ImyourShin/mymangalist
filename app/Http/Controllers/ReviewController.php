@@ -79,7 +79,7 @@ class ReviewController extends Controller
 
         $review->update($request->only(['user_id', 'manga_id', 'rating', 'comment']));
 
-        Alert::success('อัปเดต Review สำเร็จ');
+        Alert::success('Update Successfully');
         return redirect()->route('admin.reviews.list');
     }
 
@@ -89,7 +89,7 @@ class ReviewController extends Controller
         $this->authorize('delete', $review); // ใช้ Policy เช็คสิทธิ์
 
         $review->delete();
-        Alert::success('ลบ Review สำเร็จ');
+        Alert::success('Delete Successfully');
         return redirect()->route('admin.reviews.list');
     }
 

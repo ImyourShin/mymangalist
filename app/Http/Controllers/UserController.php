@@ -113,7 +113,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        Alert::success('อัปเดต User สำเร็จ');
+        Alert::success('Update Successfully');
         return redirect()->route('admin.users.list');
     }
 
@@ -127,7 +127,7 @@ class UserController extends Controller
         }
 
         $user->delete();
-        Alert::success('ลบ User สำเร็จ');
+        Alert::success('Delete Successfully');
         return redirect()->route('admin.users.list');
     }
 }

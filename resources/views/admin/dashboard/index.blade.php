@@ -319,21 +319,7 @@ body {
     </div>
   </div>
 
-  {{-- Charts --}}
-  <div class="row mt-1 g-4">
-    <div class="col-md-6">
-      <div class="section-card">
-        <div class="card-header"><i class="bi bi-graph-up"></i> Views (7 วันล่าสุด)</div>
-        <div class="card-body"><canvas id="viewsChart"></canvas></div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="section-card">
-        <div class="card-header"><i class="bi bi-bar-chart"></i> Favorites (7 วันล่าสุด)</div>
-        <div class="card-body"><canvas id="favoritesChart"></canvas></div>
-      </div>
-    </div>
-  </div>
+  
 
 </div>
 @endsection
