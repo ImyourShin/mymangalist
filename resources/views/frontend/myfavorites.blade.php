@@ -573,17 +573,16 @@
                                         </div>
 
                                         <div class="card-meta">
-                                            @if ($fav->manga->genres && $fav->manga->genres->count() > 0)
-                                                <div class="genre-badges">
-                                                    @foreach ($fav->manga->genres as $genre)
-                                                        <span class="genre-badge">{{ $genre->name }}</span>
-                                                    @endforeach
-                                                </div>
-                                            @else
-                                                <div class="genre-badges">
+                                            <div class="genre-badges">
+                                                @forelse($fav->manga->genres->take(2) as $g)
+                                                    <span class="genre-badge">{{ $g->name }}</span>
+                                                @empty
                                                     <span class="genre-badge">Unknown</span>
-                                                </div>
-                                            @endif
+                                                @endforelse
+                                                @if ($fav->manga->genres->count() > 2)
+                                                    <span class="genre-badge">+{{ $fav->manga->genres->count() - 2 }}</span>
+                                                @endif
+                                            </div>
                                         </div>
 
                                         @php
@@ -618,7 +617,7 @@
                                             <a href="{{ route('manga.detail', $fav->manga_id) }}" class="btn-detail">
                                                 <i class="fas fa-eye"></i> View Details
                                             </a>
-                                            <form action="{{ route('admin.favorites.remove', $fav->favorite_id) }}"
+                                            <form action="{{ route('frontend.favorites.remove', $fav->favorite_id) }}"
                                                 method="POST"
                                                 onsubmit="return confirm('Remove this manga from favorites?');"
                                                 style="margin: 0;">

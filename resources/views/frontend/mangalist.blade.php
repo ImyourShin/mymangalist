@@ -1008,9 +1008,19 @@
                                                     class="btn-detail">
                                                     <i class="fas fa-eye"></i> View Details
                                                 </a>
-                                                <button class="btn-favorite" title="Add to Favorites">
-                                                    <i class="far fa-heart"></i>
-                                                </button>
+                                                @auth
+                                                    <button class="btn-favorite"
+                                                        onclick="toggleFavorite({{ $manga->manga_id }}, this)"
+                                                        title="{{ in_array($manga->manga_id, $userFavorites ?? []) ? 'Remove from Favorites' : 'Add to Favorites' }}">
+                                                        <i
+                                                            class="fa{{ in_array($manga->manga_id, $userFavorites ?? []) ? 's' : 'r' }} fa-heart"></i>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('login') }}" class="btn-favorite"
+                                                        title="Login to add favorites">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                @endauth
                                             </div>
                                         </div>
                                     </div>
@@ -1115,6 +1125,57 @@
                 input.addEventListener('change', updateActiveFiltersCount);
                 input.addEventListener('input', updateActiveFiltersCount);
             });
+        });
+
+        function toggleFavorite(mangaId, button) {
+            fetch(`/manga/${mangaId}/favorite`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const icon = button.querySelector('i');
+                        if (data.status === 'added') {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                            button.title = 'Remove from Favorites';
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Added to favorites'
+                            });
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                            button.title = 'Add to Favorites';
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Removed from favorites'
+                            });
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Failed to update favorites'
+                    });
+                });
+        }
+
+        // Initialize SweetAlert2 Toast
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
         });
     </script>
 @endpush

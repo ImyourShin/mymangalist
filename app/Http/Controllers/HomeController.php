@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\MangaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\FavoriteModel; // เพิ่มการนำเข้า FavoriteModel
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $userFavorites = [];
+        if (Auth::check()) {
+            $userFavorites = FavoriteModel::where('user_id', Auth::id())
+                ->pluck('manga_id')
+                ->toArray();
+        }
+
         // ✅ Popular Manga: ดึง manga ที่มีค่าเฉลี่ย rating สูงสุด
         $popularManga = MangaModel::withAvg('reviews', 'rating')
             ->withCount('reviews') // ✅ เพิ่มบรรทัดนี้
@@ -34,6 +43,6 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        return view('frontend.home', compact('popularManga', 'latestManga', 'popularManhwa'));
+        return view('frontend.home', compact('latestManga', 'popularManga', 'userFavorites'));
     }
 }

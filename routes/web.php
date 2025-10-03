@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendReviewController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FrontendFavoriteController;
 
 
 // ======================
@@ -61,7 +62,10 @@ Route::middleware('auth')->group(function () {
     // Favorites (authenticated users only)
     Route::get('/my-favorites', [FavoriteController::class, 'myFavorites'])->name('favorites.my');
     Route::post('/favorites/toggle/{manga_id}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
-    Route::post('/manga/{id}/favorite', [FavoriteController::class, 'addFromFrontend'])->name('favorites.add');
+    Route::post('/manga/{id}/favorite', [FrontendFavoriteController::class, 'toggle'])
+        ->name('frontend.favorites.toggle');
+    Route::delete('/favorites/{id}', [FrontendFavoriteController::class, 'remove'])
+        ->name('frontend.favorites.remove');
 });
 
 // ======================

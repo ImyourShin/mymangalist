@@ -52,10 +52,16 @@ class FavoriteController extends Controller
     {
         $user = Auth::user();
 
-        $favorites = FavoriteModel::with('manga')
+        $favorites = FavoriteModel::with([
+                'manga' => function($query) {
+                    $query->with('genres')                      // ✅ โหลด genres
+                        ->withAvg('reviews', 'rating')        // ✅ คำนวณค่าเฉลี่ย rating
+                        ->withCount('reviews');               // ✅ นับจำนวน reviews
+                }
+            ])
             ->where('user_id', $user->user_id)
             ->orderBy('favorite_id', 'desc')
-            ->paginate(10);
+            ->paginate(12);  // เปลี่ยนจาก 10 เป็น 12 เพื่อให้เต็ม grid
 
         return view('frontend.myfavorites', compact('favorites'));
     }

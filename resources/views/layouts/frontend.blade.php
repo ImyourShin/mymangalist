@@ -574,6 +574,8 @@
 
     @yield('css_before')
     @stack('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -673,7 +675,7 @@
                                 <i class="fas fa-heart"></i>
                                 <span>My Favorites</span>
                             </a>
-                            
+
 
                             @if (Auth::user()->role === 'admin')
                                 <hr class="dropdown-divider">
@@ -708,8 +710,9 @@
         <!-- Mobile Search -->
         <div class="mobile-search">
             <form action="/manga/search" method="get" class="search-container">
-                <input type="text" name="keyword" class="search-input" placeholder="Search manga, author, genre..."
-                    value="{{ request('keyword') }}" autocomplete="off">
+                <input type="text" name="keyword" class="search-input"
+                    placeholder="Search manga, author, genre..." value="{{ request('keyword') }}"
+                    autocomplete="off">
                 <button type="submit" class="search-btn">
                     <i class="fas fa-search"></i>
                 </button>

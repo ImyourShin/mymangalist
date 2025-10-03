@@ -46,6 +46,13 @@ class MangaController extends Controller
 
     public function frontendList(Request $request)
     {
+        $userFavorites = [];
+        if (Auth::check()) {
+            $userFavorites = FavoriteModel::where('user_id', Auth::id())
+                ->pluck('manga_id')
+                ->toArray();
+        }
+
         $query = MangaModel::with(['genres', 'reviews'])
             ->withAvg('reviews', 'rating')
             ->withCount('reviews');
@@ -122,6 +129,7 @@ class MangaController extends Controller
         return view('frontend.mangalist', compact(
             'mangaList',
             'genres',
+            'userFavorites',
             'totalResults',
             'sortBy',
             'perPage'
