@@ -673,7 +673,7 @@
                                 <i class="fas fa-heart"></i>
                                 <span>My Favorites</span>
                             </a>
-
+                            
 
                             @if (Auth::user()->role === 'admin')
                                 <hr class="dropdown-divider">
