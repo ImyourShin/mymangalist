@@ -9,6 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\Paginator;
 use App\Models\MangaModel;
+use App\Models\GenreModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\FavoriteModel;
 use App\Models\MangaVisit;
@@ -18,23 +19,14 @@ class MangaController extends Controller
 {
     public function index()
     {
-
         Paginator::useBootstrap();
-        $mangaList = MangaModel::orderBy('manga_id', 'desc')->paginate(5);
-
+        $mangaList = MangaModel::with('genres')->orderBy('manga_id', 'desc')->paginate(5);
         return view('admin.manga.list', compact('mangaList'));
     }
 
     public function detail($id)
     {
-        $manga = MangaModel::with('reviews.user')->findOrFail($id);
-
-        // MangaVisit::create([
-        //     'manga_id'   => $manga->manga_id,
-        //     'ip_address' => request()->ip(),
-        //     'url'        => request()->fullUrl(),
-        //     'user_agent' => request()->userAgent(),
-        // ]);
+        $manga = MangaModel::with(['reviews.user','genres'])->findOrFail($id);
 
         $isFavorite = false;
         if (Auth::check()) {
@@ -46,62 +38,94 @@ class MangaController extends Controller
         return view('frontend.manga_detail', compact('manga', 'isFavorite'));
     }
 
-
-
     public function frontendList(Request $request)
     {
-        $query = MangaModel::query();
+        $query = MangaModel::with(['genres', 'reviews'])
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews');
 
-        // ✅ Multi-search (Title, Author, Genre)
+        // Handle Search
         if ($request->filled('search')) {
-            $search = $request->search;
+            $search = trim($request->search);
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('author', 'like', "%{$search}%")
-                    ->orWhere('genre', 'like', "%{$search}%");
+                    ->orWhereHas('genres', function($g) use ($search) {
+                        $g->where('name', 'like', "%{$search}%");
+                    });
             });
         }
 
-        // ✅ Filter by Genres (checkbox)
+        // ✅ FIX: Filter by Multiple Genres (AND condition)
         if ($request->has('genres') && is_array($request->genres)) {
-            $query->whereIn('genre', $request->genres);
+            $genreIds = array_filter($request->genres, function($id) {
+                return is_numeric($id) && $id > 0;
+            });
+            
+            if (!empty($genreIds)) {
+                foreach ($genreIds as $genreId) {
+                    $query->whereHas('genres', function($q) use ($genreId) {
+                        $q->where('manga_genre.genre_id', $genreId);
+                    });
+                }
+            }
         }
 
-        // ✅ Filter by Author (sidebar input)
+        // ✅ FIX: Filter by Author - Handle exact and partial matches
         if ($request->filled('author')) {
-            $query->where('author', 'like', '%' . $request->author . '%');
+            $author = trim($request->author);
+            $query->where('author', 'like', "%{$author}%");
         }
 
-        // ✅ Filter by Status (radio)
-        if ($request->filled('status')) {
+        // ✅ FIX: Filter by Status - Direct where clause
+        if ($request->filled('status') && in_array($request->status, ['Publishing', 'Completed'])) {
             $query->where('status', $request->status);
         }
 
-        // ✅ Pagination
-        $mangaList = $query->orderBy('manga_id', 'desc')->paginate(9);
+        // Sort Options
+        $sortBy = $request->get('sort', 'latest');
+        switch ($sortBy) {
+            case 'title_asc':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'title_desc':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'rating':
+                $query->orderByDesc('reviews_avg_rating')
+                      ->orderByDesc('reviews_count');
+                break;
+            case 'popularity':
+                $query->orderByDesc('reviews_count')
+                      ->orderByDesc('reviews_avg_rating');
+                break;
+            default: // latest
+                $query->orderByDesc('manga_id');
+        }
 
-        // ✅ Data สำหรับ Sidebar
-        $genres = MangaModel::select('genre')
-            ->whereNotNull('genre')
-            ->distinct()
-            ->pluck('genre')
-            ->toArray();
+        // Pagination with remembered page
+        $perPage = $request->get('per_page', 12);
+        $mangaList = $query->paginate($perPage)->withQueryString();
 
-        $authors = MangaModel::select('author')
-            ->whereNotNull('author')
-            ->distinct()
-            ->pluck('author')
-            ->toArray();
+        // ✅ FIX: Get all genres for sidebar
+        $genres = GenreModel::orderBy('name')->get();
 
-        return view('frontend.mangalist', compact('mangaList', 'genres', 'authors'));
+        // Count total results
+        $totalResults = $mangaList->total();
+
+        return view('frontend.mangalist', compact(
+            'mangaList',
+            'genres',
+            'totalResults',
+            'sortBy',
+            'perPage'
+        ));
     }
-
-
-
 
     public function adding()
     {
-        return view('admin.manga.create');
+        $genres = GenreModel::all();
+        return view('admin.manga.create', compact('genres'));
     }
 
     public function create(Request $request)
@@ -110,16 +134,12 @@ class MangaController extends Controller
             'title'        => 'required|min:3',
             'author'       => 'required|min:3',
             'publisher'    => 'nullable|string',
-            'genre'        => 'required|string',
+            'genres'       => 'required|array',
             'status'       => ['required', Rule::in(['Publishing', 'Completed'])],
             'release_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'type'         => ['required', Rule::in(['Manga','Manhwa','Manhua'])],
+            'synopsis'     => 'nullable|string|max:2000',
             'cover_img'    => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
-        ], [
-            'title.required'  => 'กรุณากรอกชื่อเรื่อง',
-            'author.required' => 'กรุณากรอกชื่อผู้แต่ง',
-            'genre.required'  => 'กรุณาเลือกหมวดหมู่',
-            'cover_img.mimes' => 'รองรับ jpeg, png, jpg เท่านั้น',
-            'cover_img.max'   => 'ขนาดไฟล์ไม่เกิน 5MB',
         ]);
 
         if ($validator->fails()) {
@@ -133,15 +153,18 @@ class MangaController extends Controller
                 ? $request->file('cover_img')->store('uploads/manga', 'public')
                 : null;
 
-            MangaModel::create([
+            $manga = MangaModel::create([
                 'title'        => strip_tags($request->title),
                 'author'       => strip_tags($request->author),
                 'publisher'    => strip_tags($request->publisher),
-                'genre'        => strip_tags($request->genre),
                 'status'       => $request->status,
                 'release_year' => $request->release_year,
                 'cover_img'    => $imagePath,
+                'type'         => $request->type,
+                'synopsis'     => $request->synopsis,
             ]);
+
+            $manga->genres()->sync($request->genres);
 
             Alert::success('Insert Successfully');
             return redirect()->route('admin.manga.list');
@@ -154,8 +177,9 @@ class MangaController extends Controller
 
     public function edit($id)
     {
-        $manga = MangaModel::findOrFail($id);
-        return view('admin.manga.edit', compact('manga'));
+        $manga = MangaModel::with('genres')->findOrFail($id);
+        $genres = GenreModel::all();
+        return view('admin.manga.edit', compact('manga','genres'));
     }
 
     public function update($id, Request $request)
@@ -164,14 +188,16 @@ class MangaController extends Controller
             'title'        => 'required|min:3',
             'author'       => 'required|min:3',
             'publisher'    => 'nullable|string',
-            'genre'        => 'required|string',
+            'genres'       => 'required|array',
             'status'       => ['required', Rule::in(['Publishing', 'Completed'])],
             'release_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'type'         => ['required', Rule::in(['Manga','Manhwa','Manhua'])],
+            'synopsis'     => 'nullable|string|max:2000',
             'cover_img'    => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('manga.edit', $id)
+            return redirect()->route('admin.manga.edit', $id)
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -183,9 +209,10 @@ class MangaController extends Controller
                 'title'        => strip_tags($request->title),
                 'author'       => strip_tags($request->author),
                 'publisher'    => strip_tags($request->publisher),
-                'genre'        => strip_tags($request->genre),
                 'status'       => $request->status,
                 'release_year' => $request->release_year,
+                'type'         => $request->type,
+                'synopsis'     => $request->synopsis,
             ];
 
             if ($request->hasFile('cover_img')) {
@@ -196,9 +223,11 @@ class MangaController extends Controller
             }
 
             $manga->update($data);
+            $manga->genres()->sync($request->genres);
 
             Alert::success('Update Successfully');
             return redirect()->route('admin.manga.list');
+
         } catch (\Exception $e) {
             report($e);
             Alert::error('เกิดข้อผิดพลาด', $e->getMessage());
@@ -215,7 +244,9 @@ class MangaController extends Controller
                 Storage::disk('public')->delete($manga->cover_img);
             }
 
+            $manga->genres()->detach();
             $manga->delete();
+
             Alert::success('Delete Successfully');
             return redirect()->route('admin.manga.list');
         } catch (\Exception $e) {
@@ -229,16 +260,19 @@ class MangaController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        $query = MangaModel::query();
+        $query = MangaModel::with('genres');
 
         if ($keyword) {
             $query->where('title', 'like', "%{$keyword}%")
                 ->orWhere('author', 'like', "%{$keyword}%")
-                ->orWhere('genre', 'like', "%{$keyword}%")
-                ->orWhere('publisher', 'like', "%{$keyword}%");
+                ->orWhere('publisher', 'like', "%{$keyword}%")
+                ->orWhereHas('genres', function($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
         }
 
         $mangaList = $query->orderBy('manga_id', 'desc')->paginate(12);
+
         SiteVisit::create([
             'ip_address' => request()->ip(),
             'url'        => request()->fullUrl(),

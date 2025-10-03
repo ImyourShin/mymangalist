@@ -22,7 +22,13 @@
                         <p class="card-text">
                             <small class="text-muted">
                                 {{ $fav->manga->author ?? '-' }} |
-                                {{ $fav->manga->genre ?? '-' }}
+                                @if ($fav->manga && $fav->manga->genres->count())
+                                    @foreach ($fav->manga->genres as $g)
+                                        <span class="badge bg-primary">{{ $g->name }}</span>
+                                    @endforeach
+                                @else
+                                    <span class="badge bg-secondary">No Genre</span>
+                                @endif
                             </small>
                         </p>
                         <a href="{{ route('manga.detail', $fav->manga->manga_id) }}" class="btn btn-primary btn-sm">

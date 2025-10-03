@@ -1,112 +1,117 @@
 @extends('layouts.backend')
 @section('css_before')
+    <style>
+        :root {
+            --bg-900: #0d0d0d;
+            /* --bg-800:#1a1a1a; */
+            --bg-800: #1c1c1c;
+            ;
+            --text-100: #f5f5f7;
+            --text-70: #b3b3b3;
+            --accent: #FF4C00;
+            --danger: #d33;
+            --radius: 14px;
+            --shadow-soft: 0 6px 20px rgba(0, 0, 0, .45);
+            --font: 'Poppins', 'Inter', sans-serif;
+        }
 
-<style>
-:root {
-  --bg-900:#0d0d0d;
-  /* --bg-800:#1a1a1a; */
-  --bg-800:#1c1c1c;;
-  --text-100:#f5f5f7;
-  --text-70:#b3b3b3     ;
-  --accent:#FF4C00;  
-  --danger:#d33;
-  --radius:14px;
-  --shadow-soft:0 6px 20px rgba(0,0,0,.45);
-  --font:'Poppins','Inter',sans-serif;
-}
+        body {
+            font-family: var(--font);
+            font-size: 15px;
+            line-height: 1.6;
+            background: var(--bg-800);
+            color: var(--text-100);
+        }
 
-body {
-  font-family: var(--font);
-  font-size: 15px;
-  line-height: 1.6;
-  background: var(--bg-800);
-  color: var(--text-100);
-}
+        /* ===== Title Bar ===== */
+        h3 {
+            color: var(--text-100);
+            font-weight: 700;
+            font-size: 1.4rem;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-800);
+            border-left: 6px solid var(--accent);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+        }
 
-/* ===== Title Bar ===== */
-h3 {
-  color: var(--text-100);
-  font-weight: 700;
-  font-size: 1.4rem;
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
-  background: var(--bg-800);
-  border-left: 6px solid var(--accent);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-}
+        /* ===== Form Panel ===== */
+        form {
+            background: var(--bg-800);
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+        }
 
-/* ===== Form Panel ===== */
-form {
-  background: var(--bg-800);
-  padding: 2rem 1.5rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-}
+        .form-group label {
+            color: var(--text-100);
+            font-weight: 600;
+        }
 
-.form-group label {
-  color: var(--text-100);
-  font-weight: 600;
-}
+        .form-control {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: var(--text-100);
+            border-radius: 10px;
+            padding: .6rem .75rem;
+            transition: 0.25s ease;
+        }
 
-.form-control {
-  background: #1a1a1a;
-  border: 1px solid rgba(255,255,255,.1);
-  color: var(--text-100);
-  border-radius: 10px;
-  padding: .6rem .75rem;
-  transition: 0.25s ease;
-}
-.form-control:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(255,76,0,.3);
-  background: #1c1c1c;
-  color: #fff;
-}
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(255, 76, 0, .3);
+            background: #1c1c1c;
+            color: #fff;
+        }
 
-.form-control::placeholder {
-  color: var(--text-70); /* เทาอ่อน */
-  opacity: 1;            /* ให้ชัดเต็ม */
-  font-style: italic;    /* เอียงนิดหน่อยให้ต่างจาก value */
-}
+        .form-control::placeholder {
+            color: var(--text-70);
+            /* เทาอ่อน */
+            opacity: 1;
+            /* ให้ชัดเต็ม */
+            font-style: italic;
+            /* เอียงนิดหน่อยให้ต่างจาก value */
+        }
 
-input[type="file"] {
-  color: var(--text-70);
-}
+        input[type="file"] {
+            color: var(--text-70);
+        }
 
-/* Error text */
-.text-danger {
-  font-size: 0.875rem;
-  margin-top: .25rem;
-}
+        /* Error text */
+        .text-danger {
+            font-size: 0.875rem;
+            margin-top: .25rem;
+        }
 
-/* ===== Buttons ===== */
-.btn {
-  border-radius: 999px;
-  font-weight: 600;
-  padding: .5rem 1.25rem;
-  transition: 0.25s ease;
-}
+        /* ===== Buttons ===== */
+        .btn {
+            border-radius: 999px;
+            font-weight: 600;
+            padding: .5rem 1.25rem;
+            transition: 0.25s ease;
+        }
 
-.btn-primary {
-  background: var(--accent);
-  border: none;
-}
-.btn-primary:hover {
-  background: #ff6320;
-  box-shadow: 0 0 10px rgba(255,76,0,.6);
-}
+        .btn-primary {
+            background: var(--accent);
+            border: none;
+        }
 
-.btn-danger {
-  background: var(--danger);
-  border: none;
-}
-.btn-danger:hover {
-  background: #ff4444;
-  box-shadow: 0 0 10px rgba(211,51,51,.6);
-}
-</style>
+        .btn-primary:hover {
+            background: #ff6320;
+            box-shadow: 0 0 10px rgba(255, 76, 0, .6);
+        }
 
+        .btn-danger {
+            background: var(--danger);
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background: #ff4444;
+            box-shadow: 0 0 10px rgba(211, 51, 51, .6);
+        }
+    </style>
 @endsection
 
 @section('header')
@@ -119,13 +124,14 @@ input[type="file"] {
 @section('content')
     <h3> :: Form Add Manga :: </h3>
 
-    <form action="/manga/" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.manga.create') }}" method="post" enctype="multipart/form-data">
         @csrf
 
+        {{-- Title --}}
         <div class="form-group row mb-2">
             <label class="col-sm-2"> Title </label>
             <div class="col-sm-7 ">
-                <input type="text" class="form-control " name="title" required placeholder="Manga Title" minlength="3"
+                <input type="text" class="form-control" name="title" required placeholder="Manga Title" minlength="3"
                     value="{{ old('title') }}">
                 @error('title')
                     <div class="text-danger">{{ $message }}</div>
@@ -133,6 +139,7 @@ input[type="file"] {
             </div>
         </div>
 
+        {{-- Author --}}
         <div class="form-group row mb-2">
             <label class="col-sm-2"> Author </label>
             <div class="col-sm-7">
@@ -144,6 +151,7 @@ input[type="file"] {
             </div>
         </div>
 
+        {{-- Publisher --}}
         <div class="form-group row mb-2">
             <label class="col-sm-2"> Publisher </label>
             <div class="col-sm-7">
@@ -155,17 +163,39 @@ input[type="file"] {
             </div>
         </div>
 
+        {{-- Genres (checkbox) --}}
         <div class="form-group row mb-2">
-            <label class="col-sm-2"> Genre </label>
+            <label class="col-sm-2"> Genres </label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" name="genre" required placeholder="e.g. Action, Romance"
-                    value="{{ old('genre') }}">
-                @error('genre')
+                @foreach ($genres as $g)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $g->genre_id }}"
+                            {{ in_array($g->genre_id, old('genres', [])) ? 'checked' : '' }}>
+                        <label class="form-check-label">{{ $g->name }}</label>
+                    </div>
+                @endforeach
+                @error('genres')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
         </div>
 
+        {{-- Type --}}
+        <div class="form-group row mb-2">
+            <label class="col-sm-2"> Type </label>
+            <div class="col-sm-6">
+                <select name="type" class="form-control" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="Manga" {{ old('type') == 'Manga' ? 'selected' : '' }}>Manga</option>
+                    <option value="Manhwa" {{ old('type') == 'Manhwa' ? 'selected' : '' }}>Manhwa</option>
+                </select>
+                @error('type')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+
+        {{-- Status --}}
         <div class="form-group row mb-2">
             <label class="col-sm-2"> Status </label>
             <div class="col-sm-6">
@@ -180,6 +210,7 @@ input[type="file"] {
             </div>
         </div>
 
+        {{-- Release Year --}}
         <div class="form-group row mb-2">
             <label class="col-sm-2"> Release Year </label>
             <div class="col-sm-6">
@@ -191,28 +222,39 @@ input[type="file"] {
             </div>
         </div>
 
+        {{-- Synopsis --}}
+        <div class="form-group row mb-2">
+            <label class="col-sm-2"> Synopsis </label>
+            <div class="col-sm-8">
+                <textarea name="synopsis" rows="5" class="form-control" placeholder="Write synopsis here...">{{ old('synopsis') }}</textarea>
+                @error('synopsis')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+
+        {{-- Cover Image --}}
         <div class="form-group row mb-2">
             <label class="col-sm-2"> Cover Image </label>
             <div class="col-sm-6">
-                <input type="file" name="cover_img" placeholder="cover_img" accept="image/*">
+                <input type="file" name="cover_img" accept="image/*">
                 @error('cover_img')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
         </div>
 
-        <div class="form-group row mb-2 ">
+        {{-- Submit --}}
+        <div class="form-group row mb-2">
             <label class="col-sm-2"></label>
             <div class="col-sm-5 mt-3">
                 <button type="submit" class="btn btn-primary"> Insert Manga </button>
                 <a href="{{ route('admin.manga.list') }}" class="btn btn-danger">Cancel</a>
             </div>
         </div>
-
     </form>
-
-    </div>
 @endsection
+
 
 @section('footer')
 @endsection

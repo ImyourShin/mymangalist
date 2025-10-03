@@ -7,19 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class MangaModel extends Model
 {
-    protected $table = 'manga';         // ชื่อตาราง
+    use HasFactory;
+
+    protected $table = 'manga';
     protected $primaryKey = 'manga_id';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     protected $fillable = [
         'title',
         'author',
         'publisher',
-        'genre',
         'status',
         'release_year',
+        'type',
+        'synopsis',
         'cover_img',
     ];
-
 
     public function reviews()
     {
@@ -28,6 +32,18 @@ class MangaModel extends Model
 
     public function favorites()
     {
-        return $this->hasMany(FavoriteModel::class, 'manga_id');
+        return $this->hasMany(FavoriteModel::class, 'manga_id', 'manga_id');
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(
+            GenreModel::class, 
+            'manga_genre',
+            'manga_id',
+            'genre_id',
+            'manga_id',
+            'genre_id'
+        );
     }
 }

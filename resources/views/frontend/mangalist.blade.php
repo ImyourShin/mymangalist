@@ -7,11 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
-        /* =============================================
-                                                                                                                   MANGA LIST - PROFESSIONAL DARK THEME
-                                                                                                                   Matching Home Page Design System
-                                                                                                                   ============================================= */
-
         :root {
             --primary-orange: #ff6b47;
             --primary-orange-dark: #e55a2b;
@@ -24,144 +19,136 @@
             --text-muted: rgba(255, 255, 255, 0.6);
             --border-color: rgba(255, 255, 255, 0.1);
             --hover-bg: rgba(255, 255, 255, 0.05);
-            --radius: 20px;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* ===== Global Styles ===== */
         html,
         body {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-secondary) 100%);
             color: var(--text-primary);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* ===== Page Header ===== */
+        .main-content {
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
         .page-header {
             max-width: 1400px;
-            margin: 0 auto 40px;
-            padding: 32px 24px 24px;
+            margin: 0 auto 48px;
+            padding: 40px 24px 0;
+            text-align: center;
         }
 
         .page-header h1 {
-            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 900;
             color: var(--text-primary);
-            margin: 0 0 8px 0;
+            margin-bottom: 16px;
             letter-spacing: -0.02em;
         }
 
         .page-header p {
-            color: var(--text-muted);
             font-size: 1.1rem;
-            margin: 0;
+            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
         .results-count {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
-            background: rgba(255, 107, 71, 0.1);
+            padding: 10px 20px;
+            background: rgba(255, 107, 71, 0.15);
             border: 1px solid rgba(255, 107, 71, 0.3);
             border-radius: 12px;
             color: var(--primary-orange-light);
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 12px;
+            font-size: 0.95rem;
         }
 
-        /* เพิ่มใน Global Styles */
-        html {
-            overflow-x: hidden;
-            /* ป้องกัน horizontal scrollbar ระหว่าง animation */
-        }
-
-        body {
-            overflow-x: hidden;
-        }
-
-        /* ป้องกัน white flash */
-        .container-fluid {
-            background: var(--dark-bg);
-            min-height: 100vh;
-        }
-
-        .row {
-            background: transparent;
-        }
-
-        /* Optimize rendering */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* ===== Glass Panel ===== */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        /* ===== Sidebar Toggle Button ===== */
         .sidebar-toggle-btn {
             position: fixed;
-            left: 20px;
-            top: 100px;
+            left: 24px;
+            top: 120px;
             z-index: 1001;
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
             border: none;
             color: white;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 16px rgba(255, 107, 71, 0.4);
+            box-shadow: 0 8px 24px rgba(255, 107, 71, 0.4);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar-toggle-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 107, 71, 0.5);
+            box-shadow: 0 12px 32px rgba(255, 107, 71, 0.5);
         }
 
         .sidebar-toggle-btn i {
-            font-size: 1.2rem;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.3rem;
+            transition: transform 0.4s ease;
         }
 
-        /* ===== Sidebar Wrapper ===== */
         .sidebar-wrapper {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform, opacity;
         }
 
-        /* ===== Sidebar ===== */
+        @keyframes slideOut {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
         .sidebar-card {
-            height: 100%;
             display: flex;
             flex-direction: column;
-            position: relative;
+            height: 100%;
         }
 
         .sidebar-header {
-            padding: 24px 24px 16px;
+            padding: 24px;
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .section-title {
             font-weight: 800;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -170,43 +157,14 @@
             margin: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .filter-toggle {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 8px 16px;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-        }
-
-        .filter-toggle:hover {
-            background: rgba(255, 107, 71, 0.15);
-            border-color: var(--primary-orange);
-            color: var(--primary-orange-light);
-        }
-
-        .sidebar-content {
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            gap: 12px;
         }
 
         .sidebar-scroll {
             flex: 1;
             overflow-y: auto;
-            overflow-x: hidden;
-            padding: 24px 20px;
-            /* ลด padding */
+            padding: 24px;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
 
         .sidebar-scroll::-webkit-scrollbar {
@@ -222,95 +180,62 @@
             border-radius: 3px;
         }
 
-        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 107, 71, 0.5);
-        }
-
-        /* ===== Filter Sections ===== */
         .filter-section {
-            margin-bottom: 34px;
-        }
-
-        .filter-section:last-child {
-            margin-bottom: 0;
+            margin-bottom: 32px;
         }
 
         .filter-content {
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 8px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: visible;
             opacity: 1;
-        }
-
-        .filter-content.collapsed {
-            max-height: 0;
-            opacity: 0;
         }
 
         .sidebar-section {
             color: var(--text-primary);
             font-weight: 700;
-            font-size: 0.95rem;
-            position: relative;
+            font-size: 1rem;
             padding: 12px 8px;
             margin-bottom: 16px;
-            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.2s ease;
+            gap: 10px;
+            border-radius: 12px;
             user-select: none;
-        }
-
-        .sidebar-section:hover {
-            background: rgba(255, 255, 255, 0.05);
         }
 
         .sidebar-section i:first-child {
             color: var(--primary-orange);
-            font-size: 1.1rem;
-        }
-
-        .sidebar-section .toggle-icon {
-            margin-left: auto;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar-section.collapsed .toggle-icon {
-            transform: rotate(-90deg);
-        }
-
-        .sidebar-section::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 8px;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-orange), transparent);
-            border-radius: 2px;
+            font-size: 1.2rem;
         }
 
         .filter-divider {
             border: none;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-            margin: 28px -26px;
+            margin: 24px 0;
         }
 
-        /* ===== Form Controls ===== */
         .form-control {
             background: rgba(255, 255, 255, 0.05);
             border: 1.5px solid var(--border-color);
             color: var(--text-primary) !important;
             border-radius: 12px;
             padding: 12px 16px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
+        }
+
+        .filter-content .form-control {
+            grid-column: 1 / -1;
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            height: auto;
+            min-height: 45px;
         }
 
         .form-control::placeholder {
@@ -322,13 +247,10 @@
             border-color: var(--primary-orange);
             box-shadow: 0 0 0 3px rgba(255, 107, 71, 0.15);
             outline: none;
-            color: var(--text-primary) !important;
         }
 
-        /* ===== Checkboxes & Radios ===== */
         .form-check {
             padding-left: 0;
-            /* เปลี่ยนจาก 8px เป็น 0 */
             margin-bottom: 14px;
             display: flex;
             align-items: center;
@@ -341,11 +263,10 @@
             border: 2px solid var(--border-color);
             cursor: pointer;
             margin-right: 12px;
-            /* เพิ่มระยะห่างจาก checkbox ถึง label */
             margin-top: 0;
             margin-left: 0;
             flex-shrink: 0;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .form-check-input:checked {
@@ -356,23 +277,21 @@
 
         .form-check-input:hover {
             border-color: var(--primary-orange-light);
-            background: rgba(255, 107, 71, 0.1);
         }
 
         .form-check-label {
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: color 0.2s ease;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
             user-select: none;
         }
 
         .form-check-input:checked+.form-check-label {
             color: var(--text-primary);
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* ===== Buttons ===== */
         .btn-gradient {
             background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
             color: #fff;
@@ -381,7 +300,7 @@
             border-radius: 12px;
             padding: 12px 24px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 12px rgba(255, 107, 71, 0.25);
+            box-shadow: 0 6px 20px rgba(255, 107, 71, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -397,7 +316,7 @@
 
         .btn-gradient:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 107, 71, 0.35);
+            box-shadow: 0 8px 24px rgba(255, 107, 71, 0.4);
             color: #fff;
         }
 
@@ -422,13 +341,12 @@
         }
 
         .btn-outline-light:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--hover-bg);
             border-color: var(--primary-orange-light);
             color: var(--text-primary);
             transform: translateY(-2px);
         }
 
-        /* ===== Filter Actions ===== */
         .filter-actions {
             padding: 20px 24px;
             background: linear-gradient(to top, rgba(15, 15, 15, 0.95), rgba(26, 26, 26, 0.8));
@@ -436,14 +354,13 @@
             border-top: 1px solid var(--border-color);
             display: flex;
             gap: 12px;
-            border-radius: 0 0 var(--radius) var(--radius);
+            border-radius: 0 0 20px 20px;
         }
 
         .filter-actions .btn {
             flex: 1;
         }
 
-        /* ===== Manga Grid ===== */
         .manga-container {
             padding: 0 24px;
             max-width: 1400px;
@@ -453,21 +370,18 @@
         .manga-grid {
             display: grid;
             gap: 32px;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            margin-bottom: 60px;
         }
 
-        /* ===== Manga Cards ===== */
         .manga-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius);
+            border-radius: 20px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
 
         .manga-card::before {
@@ -478,63 +392,38 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
-            z-index: 1;
         }
 
         .manga-card:hover {
             transform: translateY(-12px);
             border-color: var(--primary-orange);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
         }
 
         .manga-card:hover::before {
             opacity: 1;
         }
 
-        /* ===== Cover Image ===== */
-        .manga-cover-wrap {
+        .card-thumbnail {
             position: relative;
+            width: 100%;
+            height: 380px;
             overflow: hidden;
-            height: 360px;
             background: var(--dark-bg-tertiary);
         }
 
-        .manga-cover {
+        .card-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .manga-card:hover .manga-cover {
+        .manga-card:hover .card-thumbnail img {
             transform: scale(1.1);
         }
 
-        .manga-cover-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(15, 15, 15, 0.9) 0%, transparent 50%);
-            z-index: 2;
-        }
-
-        .manga-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 999px;
-            box-shadow: 0 4px 12px rgba(255, 107, 71, 0.4);
-            z-index: 3;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        /* No Image Placeholder */
-        .no-image {
+        .placeholder-thumb {
             width: 100%;
             height: 100%;
             display: flex;
@@ -546,34 +435,37 @@
             color: var(--text-muted);
         }
 
-        .no-image i {
+        .placeholder-thumb i {
             font-size: 3rem;
             opacity: 0.5;
         }
 
-        .no-image span {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* ===== Card Content ===== */
-        .manga-card .card-body {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: rgba(15, 15, 15, 0.6);
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 2;
-        }
-
-        .manga-title {
+        .manga-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: white;
+            font-size: 0.75rem;
             font-weight: 700;
-            font-size: 1.1rem;
+            padding: 6px 14px;
+            border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(255, 107, 71, 0.4);
+            z-index: 3;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--text-primary);
-            line-height: 1.3;
             margin-bottom: 12px;
+            line-height: 1.3;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -581,59 +473,154 @@
             min-height: 2.6em;
         }
 
-        .text-author {
-            color: var(--text-muted) !important;
+        .card-info {
+            margin-bottom: 16px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .info-row i {
+            color: var(--primary-orange);
             font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 16px !important;
+            width: 16px;
+        }
+
+        .info-row strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .genre-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .genre-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(255, 107, 71, 0.15);
+            border: 1px solid rgba(255, 107, 71, 0.3);
+            border-radius: 8px;
+            color: var(--primary-orange-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .rating-display {
             display: flex;
             align-items: center;
             gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
-        .text-author i {
-            font-size: 0.75rem;
+        .stars {
+            color: #ffd700;
+            font-size: 1rem;
+            letter-spacing: 2px;
         }
 
-        .manga-card .btn-gradient {
+        .rating-number {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .card-action {
+            display: flex;
+            gap: 12px;
             margin-top: auto;
-            width: 100%;
+        }
+
+        .btn-detail {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px;
-            font-size: 0.9rem;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
-        /* ===== Empty State ===== */
+        .btn-detail:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 71, 0.4);
+            color: white;
+        }
+
+        .btn-favorite {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-favorite:hover {
+            background: rgba(255, 107, 71, 0.15);
+            border-color: var(--primary-orange);
+            color: #ff6b6b;
+            transform: scale(1.1);
+        }
+
         .empty-state {
             text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px;
             color: var(--text-muted);
         }
 
         .empty-state i {
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--text-muted);
             opacity: 0.3;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .empty-state h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--text-secondary);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .empty-state p {
-            font-size: 1rem;
-            max-width: 400px;
-            margin: 0 auto;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 32px;
         }
 
-        /* ===== Pagination ===== */
         .pagination-wrapper {
             display: flex;
             justify-content: center;
@@ -645,7 +632,6 @@
             display: flex;
             gap: 8px;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .page-item {
@@ -656,15 +642,14 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            border-radius: 50% !important;
+            border-radius: 50%;
             width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             text-decoration: none;
         }
 
@@ -673,7 +658,6 @@
             border-color: var(--primary-orange);
             color: var(--text-primary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 107, 71, 0.2);
         }
 
         .page-item.active .page-link {
@@ -688,18 +672,12 @@
             color: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.05);
             pointer-events: none;
-            box-shadow: none;
         }
 
-        .pagination .page-link span:not([aria-hidden="true"]) {
-            display: none !important;
-        }
-
-        /* ===== Animations ===== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
 
             to {
@@ -737,32 +715,6 @@
             animation-delay: 0.3s;
         }
 
-        .manga-card:nth-child(7) {
-            animation-delay: 0.35s;
-        }
-
-        .manga-card:nth-child(8) {
-            animation-delay: 0.4s;
-        }
-
-        .manga-card:nth-child(9) {
-            animation-delay: 0.45s;
-        }
-
-        /* ===== Responsive Design ===== */
-        @media (max-width: 1200px) {
-            .manga-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 24px;
-            }
-        }
-
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .manga-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
         @media (min-width: 992px) {
             .sidebar-card {
                 position: sticky;
@@ -772,33 +724,15 @@
 
             .sidebar-scroll {
                 max-height: calc(100vh - 250px);
-                /* ปรับให้เห็นเนื้อหาครบ */
-                padding: 24px 20px;
             }
 
-            .sidebar-toggle-btn {
-                display: flex;
-            }
-
-            /* Reset row behavior */
-            .container-fluid>.row {
-                margin-right: -15px;
-                margin-left: -15px;
-            }
-
-            /* Sidebar wrapper */
             .sidebar-wrapper {
-                position: relative;
-                width: 100%;
-                min-height: 1px;
-                padding-right: 15px;
-                padding-left: 15px;
-                flex: 0 0 25%;
-                max-width: 25%;
                 transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                transform-origin: left center;
             }
 
             .sidebar-wrapper.hidden {
+                transform: translateX(-100%);
                 flex: 0 0 0%;
                 max-width: 0;
                 padding: 0;
@@ -806,28 +740,18 @@
                 opacity: 0;
             }
 
-            /* Content column */
-            .col-lg-9 {
-                position: relative;
-                width: 100%;
-                min-height: 1px;
-                padding-right: 15px;
-                padding-left: 15px;
-                flex: 0 0 75%;
-                max-width: 75%;
-                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
             .sidebar-wrapper.hidden~.col-lg-9 {
                 flex: 0 0 100%;
                 max-width: 100%;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
-            /* Manga container - จัดกลางเสมอ */
-            .manga-container {
-                max-width: 1400px;
-                margin-left: auto;
-                margin-right: auto;
+            .sidebar-card {
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .sidebar-wrapper.hidden .sidebar-card {
+                transform: translateX(-50px);
             }
         }
 
@@ -836,14 +760,13 @@
                 display: none;
             }
 
-            /* จำกัดความสูง sidebar บนมือถือ/แท็บเล็ต */
             .sidebar-card {
-                max-height: 75vh;
+                max-height: none;
             }
 
             .sidebar-scroll {
-                max-height: calc(75vh - 180px);
-                padding: 20px 16px;
+                max-height: none;
+                padding-bottom: 100px;
             }
 
             .filter-actions {
@@ -851,14 +774,11 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                border-radius: 0;
-                margin: 0;
                 z-index: 999;
-                background: rgba(15, 15, 15, 0.98);
-                backdrop-filter: blur(20px);
-                border-top: 1px solid var(--border-color);
-                padding: 16px 20px;
+                border-radius: 0;
                 box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+                background: var(--dark-bg);
+                padding: 16px 24px;
             }
 
             body {
@@ -868,7 +788,7 @@
 
         @media (max-width: 768px) {
             .page-header {
-                padding: 24px 16px 16px;
+                padding: 24px 16px 0;
             }
 
             .manga-container {
@@ -880,145 +800,77 @@
                 gap: 20px;
             }
 
-            .manga-cover-wrap {
+            .card-thumbnail {
                 height: 280px;
-            }
-
-            .manga-title {
-                font-size: 1rem;
-            }
-
-            .sidebar-scroll {
-                padding: 16px 12px;
-                max-height: calc(70vh - 160px);
-            }
-
-            /* ลด spacing */
-            .filter-section {
-                margin-bottom: 24px;
-            }
-
-            .sidebar-section {
-                padding: 10px 6px;
-                margin-bottom: 12px;
-                font-size: 0.9rem;
-            }
-
-            .form-check {
-                margin-bottom: 12px;
-            }
-
-            .filter-divider {
-                margin: 20px -12px;
             }
         }
 
         @media (max-width: 576px) {
-            .section-title {
-                font-size: 1.1rem;
-            }
-
             .manga-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 16px;
             }
 
-            .manga-cover-wrap {
+            .card-thumbnail {
                 height: 240px;
             }
 
-            .manga-card .card-body {
+            .card-content {
                 padding: 16px;
             }
 
-            .manga-title {
-                font-size: 0.95rem;
-            }
-
-            .manga-badge {
-                font-size: 0.65rem;
-                padding: 4px 10px;
-            }
-
-            .page-link {
-                width: 40px;
-                height: 40px;
-                font-size: 0.85rem;
-            }
-
-            .sidebar-scroll {
-                padding: 12px 10px;
-                max-height: calc(65vh - 140px);
-            }
-
-            .form-check-label {
-                font-size: 0.85rem;
-            }
-
-            .form-control {
-                font-size: 0.85rem;
-                padding: 10px 12px;
+            .card-title {
+                font-size: 1rem;
             }
         }
     </style>
 @endpush
 
 @section('content')
-    <div class="container-fluid">
-        <!-- Sidebar Toggle Button -->
-        <button class="sidebar-toggle-btn" id="sidebarToggle" title="Toggle Filter Sidebar">
-            <i class="bi bi-funnel-fill"></i>
-        </button>
+    <div class="main-content">
+        <div class="container-fluid">
+            <button class="sidebar-toggle-btn" id="sidebarToggle" title="Toggle Filter Sidebar">
+                <i class="bi bi-funnel-fill"></i>
+            </button>
 
-        <!-- Page Header -->
-        <div class="page-header fade-in">
-            <h1>Explore Manga Collection</h1>
-            <p>Discover your next favorite story from our extensive library</p>
-            @if (isset($mangaList) && $mangaList->total() > 0)
-                <span class="results-count">
-                    <i class="bi bi-collection"></i>
-                    {{ $mangaList->total() }} {{ Str::plural('manga', $mangaList->total()) }} found
-                </span>
-            @endif
-        </div>
+            <div class="page-header">
+                <h1>Explore Manga Collection</h1>
+                <p>Discover your next favorite story from our extensive library</p>
+                @if (isset($mangaList) && $mangaList->total() > 0)
+                    <span class="results-count">
+                        <i class="bi bi-collection"></i>
+                        {{ $mangaList->total() }} {{ Str::plural('manga', $mangaList->total()) }} found
+                    </span>
+                @endif
+            </div>
 
-        <div class="row">
-            <!-- Sidebar Filter -->
-            <div class="col-12 col-lg-3 mb-4 sidebar-wrapper" id="sidebarWrapper">
-                <div class="card glass-panel sidebar-card">
-                    <div class="sidebar-header">
-                        <h5 class="section-title">
-                            <i class="bi bi-funnel-fill"></i>
-                            Refine Search
-                        </h5>
-                        <button class="filter-toggle d-lg-none" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#refineCollapse" aria-expanded="false" aria-controls="refineCollapse">
-                            <i class="bi bi-chevron-down"></i>
-                            <span>Filters</span>
-                        </button>
-                    </div>
+            <div class="row">
+                <div class="col-12 col-lg-3 mb-4 sidebar-wrapper" id="sidebarWrapper">
+                    <div class="card glass-panel sidebar-card">
+                        <div class="sidebar-header">
+                            <h5 class="section-title">
+                                <i class="bi bi-funnel-fill"></i>
+                                Refine Search
+                            </h5>
+                        </div>
 
-                    <div class="collapse d-lg-block sidebar-content" id="refineCollapse">
                         <form action="{{ route('frontend.mangalist') }}" method="GET" id="filterForm"
                             class="d-flex flex-column h-100">
                             <div class="sidebar-scroll">
-
-                                <!-- Genres Section -->
                                 <div class="filter-section">
-                                    <h6 class="sidebar-section" data-toggle="filter">
+                                    <h6 class="sidebar-section">
                                         <i class="bi bi-tags-fill"></i>
                                         <span>Genres</span>
-                                        <i class="bi bi-chevron-down toggle-icon"></i>
                                     </h6>
-                                    <div class="filter-content genre-list">
-                                        @foreach ($genres as $g)
+                                    <div class="filter-content">
+                                        @foreach ($genres as $genre)
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="genres[]"
-                                                    value="{{ $g }}" id="genre-{{ $loop->index }}"
-                                                    {{ in_array($g, request()->get('genres', [])) ? 'checked' : '' }}>
-                                                <label
-                                                    class="form-check-label
-                                                for="genre-{{ $loop->index }}">{{ $g }}</label>
+                                                    value="{{ $genre->genre_id }}" id="genre-{{ $genre->genre_id }}"
+                                                    {{ in_array($genre->genre_id, request()->get('genres', [])) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="genre-{{ $genre->genre_id }}">
+                                                    {{ $genre->name }}
+                                                </label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -1026,27 +878,24 @@
 
                                 <div class="filter-divider"></div>
 
-                                <!-- Author Section -->
                                 <div class="filter-section">
-                                    <h6 class="sidebar-section" data-toggle="filter">
+                                    <h6 class="sidebar-section">
                                         <i class="bi bi-person-fill"></i>
                                         <span>Author</span>
-                                        <i class="bi bi-chevron-down toggle-icon"></i>
                                     </h6>
-                                    <div class="filter-content">
+                                    <div class="filter-content" style="display: block;">
                                         <input type="text" name="author" class="form-control"
-                                            placeholder="Search by author..." value="{{ request('author') }}">
+                                            placeholder="Search by author..." value="{{ request('author') }}"
+                                            style="grid-column: 1 / -1;">
                                     </div>
                                 </div>
 
                                 <div class="filter-divider"></div>
 
-                                <!-- Status Section -->
                                 <div class="filter-section">
-                                    <h6 class="sidebar-section" data-toggle="filter">
+                                    <h6 class="sidebar-section">
                                         <i class="bi bi-clock-history"></i>
                                         <span>Status</span>
-                                        <i class="bi bi-chevron-down toggle-icon"></i>
                                     </h6>
                                     <div class="filter-content">
                                         <div class="form-check">
@@ -1065,11 +914,10 @@
                                 </div>
                             </div>
 
-                            <!-- Filter Actions -->
                             <div class="filter-actions">
                                 <button type="submit" class="btn btn-gradient">
                                     <i class="bi bi-check-circle"></i>
-                                    <span>Apply Filters</span>
+                                    <span>Apply</span>
                                 </button>
                                 <a href="{{ route('frontend.mangalist') }}" class="btn btn-outline-light">
                                     <i class="bi bi-arrow-clockwise"></i>
@@ -1079,324 +927,194 @@
                         </form>
                     </div>
                 </div>
-            </div>
 
-            <!-- Manga Grid -->
-            <div class="col-12 col-lg-9">
-                <div class="manga-container">
-                    @if (isset($mangaList) && $mangaList->count() > 0)
-                        <div class="manga-grid">
-                            @foreach ($mangaList as $manga)
-                                <div class="manga-card">
-                                    <!-- Cover -->
-                                    <div class="manga-cover-wrap">
-                                        @if ($manga->cover_img)
-                                            <img src="{{ asset('storage/' . $manga->cover_img) }}"
-                                                alt="{{ $manga->title }}" class="manga-cover">
-                                        @else
-                                            <div class="no-image">
-                                                <i class="bi bi-image"></i>
-                                                <span>No Image</span>
+                <div class="col-12 col-lg-9">
+                    <div class="manga-container">
+                        @if (isset($mangaList) && $mangaList->count() > 0)
+                            <div class="manga-grid">
+                                @foreach ($mangaList as $manga)
+                                    <div class="manga-card">
+                                        <div class="card-thumbnail">
+                                            @if ($manga->cover_img)
+                                                <img src="{{ asset('storage/' . $manga->cover_img) }}"
+                                                    alt="{{ $manga->title }}">
+                                            @else
+                                                <div class="placeholder-thumb">
+                                                    <i class="bi bi-image"></i>
+                                                    <span>No Image</span>
+                                                </div>
+                                            @endif
+                                            <span class="manga-badge">{{ $manga->type ?? 'Manga' }}</span>
+                                        </div>
+
+                                        <div class="card-content">
+                                            <h3 class="card-title">{{ $manga->title }}</h3>
+
+                                            <div class="card-info">
+                                                <div class="info-row">
+                                                    <i class="fas fa-pen"></i>
+                                                    <span><strong>Author:</strong> {{ $manga->author ?? 'Unknown' }}</span>
+                                                </div>
+                                                <div class="info-row">
+                                                    <i class="fas fa-info-circle"></i>
+                                                    <span><strong>Status:</strong> {{ $manga->status ?? 'N/A' }}</span>
+                                                </div>
                                             </div>
-                                        @endif
-                                        <div class="manga-cover-overlay"></div>
-                                        <span class="manga-badge">{{ $manga->type ?? 'Manga' }}</span>
-                                    </div>
 
-                                    <!-- Card Body -->
-                                    <div class="card-body">
-                                        <h6 class="manga-title">{{ $manga->title }}</h6>
-                                        <p class="text-author">
-                                            <i class="bi bi-pencil"></i>
-                                            {{ $manga->author ?? 'Unknown Author' }}
-                                        </p>
-                                        <a href="{{ route('manga.detail', $manga->manga_id) }}" class="btn btn-gradient">
-                                            <i class="bi bi-eye-fill"></i>
-                                            <span>View Details</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+                                            <div class="card-meta">
+                                                @if ($manga->genres && $manga->genres->count() > 0)
+                                                    <div class="genre-badges">
+                                                        @foreach ($manga->genres as $g)
+                                                            <span class="genre-badge">{{ $g->name }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    <div class="genre-badges">
+                                                        <span class="genre-badge">Unknown</span>
+                                                    </div>
+                                                @endif
+                                            </div>
 
-                        <!-- Pagination -->
-                        <div class="pagination-wrapper">
-                            {{ $mangaList->withQueryString()->links('pagination::bootstrap-5') }}
-                        </div>
-                    @else
-                        <!-- Empty State -->
-                        <div class="empty-state">
-                            <i class="bi bi-inbox"></i>
-                            <h3>No Manga Found</h3>
-                            <p>Try adjusting your filters or search criteria to find what you're looking for.</p>
-                            <a href="{{ route('frontend.mangalist') }}" class="btn btn-gradient mt-3">
-                                <i class="bi bi-arrow-clockwise"></i>
-                                <span>Reset Filters</span>
-                            </a>
-                        </div>
-                    @endif
+                                            @php
+                                                $avgRating = $manga->reviews_avg_rating ?? 0;
+                                                $reviewsCount = $manga->reviews_count ?? 0;
+                                                $fullStars = floor($avgRating);
+                                                $hasHalfStar = $avgRating - $fullStars >= 0.5;
+                                                $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                            @endphp
+
+                                            <div class="rating-display">
+                                                <span class="stars">
+                                                    @for ($i = 0; $i < $fullStars; $i++)
+                                                        <i class="fas fa-star"></i>
+                                                    @endfor
+                                                    @if ($hasHalfStar)
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    @endif
+                                                    @for ($i = 0; $i < $emptyStars; $i++)
+                                                        <i class="far fa-star"></i>
+                                                    @endfor
+                                                </span>
+                                                @if ($reviewsCount > 0)
+                                                    <span class="rating-number">{{ number_format($avgRating, 1) }}</span>
+                                                    <span>({{ $reviewsCount }})</span>
+                                                @else
+                                                    <span class="rating-number">No rating</span>
+                                                @endif
+                                            </div>
+
+                                            <div class="card-action">
+                                                <a href="{{ route('manga.detail', $manga->manga_id) }}"
+                                                    class="btn-detail">
+                                                    <i class="fas fa-eye"></i> View Details
+                                                </a>
+                                                <button class="btn-favorite" title="Add to Favorites">
+                                                    <i class="far fa-heart"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="pagination-wrapper">
+                                {{ $mangaList->withQueryString()->links('pagination::bootstrap-5') }}
+                            </div>
+                        @else
+                            <div class="empty-state">
+                                <i class="bi bi-inbox"></i>
+                                <h3>No Manga Found</h3>
+                                <p>Try adjusting your filters or search criteria to find what you're looking for.</p>
+                                <a href="{{ route('frontend.mangalist') }}" class="btn btn-gradient">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    <span>Reset Filters</span>
+                                </a>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Sidebar Toggle Functionality
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebarWrapper = document.getElementById('sidebarWrapper');
-            const toggleIcon = sidebarToggle.querySelector('i');
-            const contentColumn = document.querySelector('.col-lg-9');
+            const toggleIcon = sidebarToggle?.querySelector('i');
 
-            // Check saved state
-            window.addEventListener('load', function() {
+            // Load saved sidebar state
+            if (sidebarToggle && sidebarWrapper && window.innerWidth >= 992) {
                 const sidebarHidden = localStorage.getItem('sidebarHidden') === 'true';
-                if (sidebarHidden && window.innerWidth >= 992) {
-                    sidebarWrapper.style.transition = 'none';
+                if (sidebarHidden) {
                     sidebarWrapper.classList.add('hidden');
                     toggleIcon.className = 'bi bi-funnel-fill';
-
-                    requestAnimationFrame(() => {
-                        sidebarWrapper.style.transition = '';
-                    });
                 }
-            });
-
-            sidebarToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                // ใช้ requestAnimationFrame เพื่อ smooth animation
-                requestAnimationFrame(() => {
-                    const isHidden = sidebarWrapper.classList.toggle('hidden');
-
-                    // Toggle icon
-                    if (isHidden) {
-                        setTimeout(() => {
-                            toggleIcon.className = 'bi bi-funnel-fill';
-                        }, 250);
-                        sidebarToggle.title = 'Show Filters';
-                    } else {
-                        setTimeout(() => {
-                            toggleIcon.className = 'bi bi-x-lg';
-                        }, 250);
-                        sidebarToggle.title = 'Hide Filters';
-                    }
-
-                    // Save state
-                    localStorage.setItem('sidebarHidden', isHidden);
-                });
-            });
-            // Toggle filter sections
-            const filterToggles = document.querySelectorAll('[data-toggle="filter"]');
-
-            filterToggles.forEach(toggle => {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const filterSection = this.closest('.filter-section');
-                    const content = filterSection.querySelector('.filter-content');
-
-                    // Toggle collapsed state
-                    this.classList.toggle('collapsed');
-                    content.classList.toggle('collapsed');
-
-                    // Save state to localStorage
-                    const sectionName = this.querySelector('span').textContent.trim();
-                    const isCollapsed = this.classList.contains('collapsed');
-                    localStorage.setItem(`filter-${sectionName}`, isCollapsed);
-                });
-            });
-
-            // Restore saved states
-            filterToggles.forEach(toggle => {
-                const sectionName = toggle.querySelector('span').textContent.trim();
-                const savedState = localStorage.getItem(`filter-${sectionName}`);
-
-                if (savedState === 'true') {
-                    const filterSection = toggle.closest('.filter-section');
-                    const content = filterSection.querySelector('.filter-content');
-                    toggle.classList.add('collapsed');
-                    content.classList.add('collapsed');
-                }
-            });
-
-            // Auto-hide mobile filter on apply (mobile only)
-            const filterForm = document.getElementById('filterForm');
-            const collapseElement = document.getElementById('refineCollapse');
-
-            if (filterForm && collapseElement && window.innerWidth < 992) {
-                filterForm.addEventListener('submit', function() {
-                    const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
-                    if (bsCollapse) {
-                        bsCollapse.hide();
-                    }
-                });
             }
 
-            
+            // Toggle sidebar with smooth animation
+            sidebarToggle?.addEventListener('click', function() {
+                const isCurrentlyHidden = sidebarWrapper.classList.contains('hidden');
 
-            // Smooth scroll to top after filter apply
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.toString() && !urlParams.has('page')) {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Add active state animation to checkboxes/radios
-            const filterInputs = document.querySelectorAll('.form-check-input');
-            filterInputs.forEach(input => {
-                input.addEventListener('change', function() {
-                    this.parentElement.style.animation = 'none';
+                if (isCurrentlyHidden) {
+                    // กำลังจะเปิด
+                    sidebarWrapper.classList.remove('hidden');
+                    sidebarWrapper.style.animation = 'slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards';
                     setTimeout(() => {
-                        this.parentElement.style.animation = 'pulse 0.3s ease';
-                    }, 10);
-                });
+                        toggleIcon.className = 'bi bi-x-lg';
+                    }, 250);
+                } else {
+                    // กำลังจะปิด
+                    sidebarWrapper.style.animation = 'slideOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                    setTimeout(() => {
+                        sidebarWrapper.classList.add('hidden');
+                        toggleIcon.className = 'bi bi-funnel-fill';
+                    }, 500);
+                }
+
+                localStorage.setItem('sidebarHidden', !isCurrentlyHidden);
             });
 
-            // Toggle icon rotation for mobile filter
-            const filterToggle = document.querySelector('.filter-toggle');
-            if (filterToggle && collapseElement) {
-                collapseElement.addEventListener('show.bs.collapse', function() {
-                    const icon = filterToggle.querySelector('i');
-                    if (icon) icon.style.transform = 'rotate(180deg)';
-                });
-
-                collapseElement.addEventListener('hide.bs.collapse', function() {
-                    const icon = filterToggle.querySelector('i');
-                    if (icon) icon.style.transform = 'rotate(0deg)';
-                });
-            }
-
-            // Lazy loading for images
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
-                            img.removeAttribute('data-src');
-                            observer.unobserve(img);
-                        }
-                    }
-                });
-            }, {
-                rootMargin: '50px'
-            });
-
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-
-            // Highlight active filters count
+            // Update active filters count
             function updateActiveFiltersCount() {
-                const checkedInputs = document.querySelectorAll('.form-check-input:checked').length;
-                const authorInput = document.querySelector('input[name="author"]');
-                const hasAuthor = authorInput && authorInput.value.trim() !== '';
+                const checkedGenres = document.querySelectorAll('input[name="genres[]"]:checked').length;
+                const authorValue = document.querySelector('input[name="author"]')?.value.trim();
+                const statusChecked = document.querySelector('input[name="status"]:checked');
 
-                const totalActive = checkedInputs + (hasAuthor ? 1 : 0);
+                const total = checkedGenres + (authorValue ? 1 : 0) + (statusChecked ? 1 : 0);
 
                 const sectionTitle = document.querySelector('.section-title');
-                if (sectionTitle) {
-                    let badge = sectionTitle.querySelector('.filter-count');
-                    if (totalActive > 0) {
-                        if (!badge) {
-                            badge = document.createElement('span');
-                            badge.className = 'filter-count';
-                            badge.style.cssText = `
-                                background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
-                                color: white;
-                                font-size: 0.75rem;
-                                padding: 4px 8px;
-                                border-radius: 999px;
-                                margin-left: auto;
-                                font-weight: 700;
-                            `;
-                            sectionTitle.appendChild(badge);
-                        }
-                        badge.textContent = totalActive;
-                    } else if (badge) {
-                        badge.remove();
+                let badge = sectionTitle?.querySelector('.filter-count');
+
+                if (total > 0) {
+                    if (!badge) {
+                        badge = document.createElement('span');
+                        badge.className = 'filter-count';
+                        badge.style.cssText = `
+                            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+                            color: white;
+                            font-size: 0.75rem;
+                            padding: 4px 10px;
+                            border-radius: 999px;
+                            margin-left: 8px;
+                            font-weight: 700;
+                        `;
+                        sectionTitle.appendChild(badge);
                     }
+                    badge.textContent = total;
+                } else {
+                    badge?.remove();
                 }
             }
 
-            // Update count on page load and input change
             updateActiveFiltersCount();
+
             document.querySelectorAll('.form-check-input, input[name="author"]').forEach(input => {
                 input.addEventListener('change', updateActiveFiltersCount);
                 input.addEventListener('input', updateActiveFiltersCount);
             });
-
-            // Add keyboard navigation for cards
-            const mangaCards = document.querySelectorAll('.manga-card');
-            mangaCards.forEach((card, index) => {
-                card.setAttribute('tabindex', '0');
-                card.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        const link = this.querySelector('.btn-gradient');
-                        if (link) link.click();
-                    }
-                });
-            });
-
-            // Fade in animation for page header
-            const pageHeader = document.querySelector('.page-header');
-            if (pageHeader) {
-                pageHeader.style.opacity = '0';
-                pageHeader.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    pageHeader.style.transition = 'all 0.6s ease';
-                    pageHeader.style.opacity = '1';
-                    pageHeader.style.transform = 'translateY(0)';
-                }, 100);
-            }
-
-            // Add ripple effect to buttons
-            document.querySelectorAll('.btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-
-                    ripple.style.cssText = `
-                        position: absolute;
-                        width: ${size}px;
-                        height: ${size}px;
-                        border-radius: 50%;
-                        background: rgba(255, 255, 255, 0.3);
-                        left: ${x}px;
-                        top: ${y}px;
-                        transform: scale(0);
-                        animation: ripple 0.6s ease-out;
-                        pointer-events: none;
-                    `;
-
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-
-                    setTimeout(() => ripple.remove(), 600);
-                });
-            });
-
-            // Add CSS for ripple animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes ripple {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                    }
-                }
-                @keyframes pulse {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.02); }
-                }
-            `;
-            document.head.appendChild(style);
         });
     </script>
-@endsection
+@endpush
