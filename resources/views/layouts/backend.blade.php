@@ -284,13 +284,7 @@
                                 Reviews
                             </a>
 
-                            <a href="/admin/favorites" 
-                            class="list-group-item list-group-item-action {{ request()->is('admin/favorites*') ? 'active' : '' }}">
-                                <span class="ico">
-                                  <img src="/images/icons/DashBoard/Star.png" alt="Manga">
-                                </span> 
-                                Favorites
-                            </a>
+                            
                         </div>
 
                         @yield('sidebarMenu')

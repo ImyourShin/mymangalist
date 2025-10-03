@@ -673,10 +673,7 @@
                                 <i class="fas fa-heart"></i>
                                 <span>My Favorites</span>
                             </a>
-                            <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                                <i class="fas fa-cog"></i>
-                                <span>Settings</span>
-                            </a>
+                            
 
                             @if (Auth::user()->role === 'admin')
                                 <hr class="dropdown-divider">

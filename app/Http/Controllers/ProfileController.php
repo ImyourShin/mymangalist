@@ -51,7 +51,7 @@ class ProfileController extends Controller
         $user->update($data);
 
         Alert::success('อัปเดตโปรไฟล์สำเร็จ');
-        return redirect()->route('profile.edit');
+        return redirect()->route('profile.show');
     }
 
     public function show()

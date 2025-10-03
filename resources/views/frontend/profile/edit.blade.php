@@ -187,6 +187,25 @@ input[type="file"]::file-selector-button:hover {
   transform: translateY(-1px);
 }
 
+/* ===== Cancel Button ===== */
+.btn-cancel {
+  background: var(--dark-bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  font-weight: 600;
+  padding: .8rem 2rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: all .25s ease;
+}
+
+.btn-cancel:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255,107,71,.35);
+  transform: translateY(-1px);
+}
+
 /* Animations */
 @keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
 @keyframes glowPulse{
@@ -252,10 +271,13 @@ input[type="file"]::file-selector-button:hover {
         @error('profile_img') <div class="text-danger">{{ $message }}</div> @enderror
       </div>
 
-      <div class="d-flex justify-content-end mt-4">
+      <div class="d-flex justify-content-center mt-4 gap-3">
         <button type="submit" class="btn btn-update">Update Profile</button>
-      </div>
-    </form>
+        
+        <a href="{{ route('profile.show') }}" class="btn btn-cancel">
+            <i class="bi bi-x-circle"></i> Cancel
+        </a>
+    </div>         
   </div>
 </div>
 @endsection
