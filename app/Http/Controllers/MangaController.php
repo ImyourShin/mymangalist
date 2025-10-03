@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\FavoriteModel;
 use App\Models\MangaVisit;
 use App\Models\SiteVisit;
+use App\Models\ReviewModel;
 
 class MangaController extends Controller
 {
@@ -34,8 +35,13 @@ class MangaController extends Controller
                 ->where('manga_id', $manga->manga_id)
                 ->exists();
         }
+        $userReview = auth()->check() 
+        ? ReviewModel::where('user_id', auth()->id())
+            ->where('manga_id', $id)
+            ->first() 
+        : null;
 
-        return view('frontend.manga_detail', compact('manga', 'isFavorite'));
+        return view('frontend.manga_detail', compact('manga', 'isFavorite', 'userReview'));
     }
 
     public function frontendList(Request $request)

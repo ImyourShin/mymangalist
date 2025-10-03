@@ -12,8 +12,18 @@ class FrontendReviewController extends Controller
 {
     public function store(Request $request, $manga_id)
     {
+        // ตรวจสอบว่า user เคยรีวิว manga นี้แล้วหรือยัง
+        $existingReview = ReviewModel::where('user_id', Auth::id())
+            ->where('manga_id', $manga_id)
+            ->first();
+
+        if ($existingReview) {
+            Alert::warning('You have already reviewed this manga', 'You can edit your existing review instead.');
+            return redirect()->route('manga.detail', $manga_id);
+        }
+
         $validator = Validator::make($request->all(), [
-            'rating'  => 'required|integer|min:1|max:10',
+            'rating'  => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:1000',
         ]);
 
@@ -33,15 +43,6 @@ class FrontendReviewController extends Controller
         Alert::success('Review added successfully');
         return redirect()->route('manga.detail', $manga_id);
     }
-    public function edit($id)
-    {
-        $review = ReviewModel::findOrFail($id);
-
-        // ใช้ Policy เช็คสิทธิ์ (admin = แก้ได้ทุกอัน, user = แก้ได้ของตัวเอง)
-        $this->authorize('update', $review);
-
-        return view('frontend.reviews.edit', compact('review'));
-    }
 
     public function update(Request $request, $id)
     {
@@ -49,30 +50,49 @@ class FrontendReviewController extends Controller
 
         $this->authorize('update', $review);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'rating'  => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:500',
+            'comment' => 'nullable|string|max:1000',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $review->update([
             'rating'  => $request->rating,
             'comment' => strip_tags($request->comment),
         ]);
 
-        return redirect()->route('manga.detail', $review->manga_id)
-            ->with('success', 'รีวิวถูกอัปเดตเรียบร้อยแล้ว');
-    }
+        // ถ้าเป็น AJAX request
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'review' => [
+                    'rating' => $review->rating,
+                    'comment' => $review->comment,
+                    'updated_at' => $review->updated_at->diffForHumans()
+                ]
+            ]);
+        }
 
+        Alert::success('Review updated successfully');
+        return redirect()->route('manga.detail', $review->manga_id);
+    }
 
     public function remove($id)
     {
         $review = ReviewModel::findOrFail($id);
 
-        // ใช้ Policy ตรวจสิทธิ์ (admin = ลบได้ทุกอัน, user = ลบได้เฉพาะของตัวเอง)
         $this->authorize('delete', $review);
 
+        $mangaId = $review->manga_id;
         $review->delete();
 
-        return back()->with('success', 'ลบรีวิวสำเร็จ');
+        Alert::success('Review deleted successfully');
+        return redirect()->route('manga.detail', $mangaId);
     }
 }
