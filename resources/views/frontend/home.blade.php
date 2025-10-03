@@ -652,7 +652,7 @@
                         <h2 class="banner-title">Your Next Adventure Awaits</h2>
                         <p class="banner-subtitle">From action-packed stories to heartwarming tales</p>
                         <a href="{{ route('register') }}" class="banner-btn">
-                            <i class="fas fa-compass"></i> Start Reading
+                            <i class="fas fa-compass"></i> Join us
                         </a>
                     </div>
                 </div>
