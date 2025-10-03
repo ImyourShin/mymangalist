@@ -673,10 +673,7 @@
                                 <i class="fas fa-heart"></i>
                                 <span>My Favorites</span>
                             </a>
-                            <a href="{{ route('profile.edit') }}" class="dropdown-item">
-                                <i class="fas fa-cog"></i>
-                                <span>Settings</span>
-                            </a>
+
 
                             @if (Auth::user()->role === 'admin')
                                 <hr class="dropdown-divider">
@@ -711,9 +708,8 @@
         <!-- Mobile Search -->
         <div class="mobile-search">
             <form action="/manga/search" method="get" class="search-container">
-                <input type="text" name="keyword" class="search-input"
-                    placeholder="Search manga, author, genre..." value="{{ request('keyword') }}"
-                    autocomplete="off">
+                <input type="text" name="keyword" class="search-input" placeholder="Search manga, author, genre..."
+                    value="{{ request('keyword') }}" autocomplete="off">
                 <button type="submit" class="search-btn">
                     <i class="fas fa-search"></i>
                 </button>

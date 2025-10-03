@@ -22,7 +22,6 @@
             --hover-bg: rgba(255, 255, 255, 0.05);
         }
 
-        /* Global Styles */
         html,
         body {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-secondary) 100%);
@@ -37,11 +36,165 @@
             padding-bottom: 80px;
         }
 
-        /* Hero Section */
+        /* Banner Carousel */
+        .banner-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+        }
+
+        .banner-carousel {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .banner-slide {
+            position: relative;
+            height: 500px;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .banner-slide.active {
+            display: block;
+        }
+
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+        }
+
+        .banner-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 60px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .banner-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+            letter-spacing: -0.02em;
+        }
+
+        .banner-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .banner-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .banner-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(255, 107, 71, 0.5);
+            color: white;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(255, 107, 71, 0.3);
+            border-color: var(--primary-orange);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav.prev {
+            left: 20px;
+        }
+
+        .carousel-nav.next {
+            right: 20px;
+        }
+
+        .carousel-nav i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 40px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--primary-orange);
+            width: 60px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
         .hero-section {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 24px 80px;
+            padding: 40px 24px 60px;
             text-align: center;
         }
 
@@ -70,7 +223,6 @@
             margin-right: auto;
         }
 
-        /* Section Headers */
         .section-header {
             max-width: 1400px;
             margin: 0 auto 40px;
@@ -116,7 +268,6 @@
             transform: translateY(-2px);
         }
 
-        /* Manga Container */
         .manga-container {
             padding: 0 24px;
             max-width: 1400px;
@@ -129,7 +280,6 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         }
 
-        /* Manga Card */
         .manga-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -138,6 +288,8 @@
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .manga-card::before {
@@ -160,7 +312,6 @@
             opacity: 1;
         }
 
-        /* Card Thumbnail */
         .card-thumbnail {
             position: relative;
             width: 100%;
@@ -213,9 +364,11 @@
             text-transform: uppercase;
         }
 
-        /* Card Content */
         .card-content {
             padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .card-title {
@@ -231,7 +384,6 @@
             min-height: 2.6em;
         }
 
-        /* Card Info */
         .card-info {
             margin-bottom: 16px;
         }
@@ -256,14 +408,9 @@
             font-weight: 600;
         }
 
-        /* Card Meta */
         .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 12px;
-            flex-wrap: wrap;
+            margin-bottom: 16px;
+            min-height: 38px;
         }
 
         .genre-badges {
@@ -284,7 +431,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Rating Display */
         .rating-display {
             display: flex;
             align-items: center;
@@ -306,7 +452,6 @@
             font-weight: 700;
         }
 
-        /* Card Action */
         .card-action {
             display: flex;
             gap: 12px;
@@ -357,7 +502,6 @@
             transform: scale(1.1);
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -399,10 +543,42 @@
             animation-delay: 0.3s;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
+            .banner-section {
+                padding: 20px 16px;
+            }
+
+            .banner-slide {
+                height: 350px;
+            }
+
+            .banner-content {
+                padding: 30px 20px;
+            }
+
+            .banner-title {
+                font-size: 2rem;
+            }
+
+            .banner-subtitle {
+                font-size: 1rem;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .carousel-nav.prev {
+                left: 10px;
+            }
+
+            .carousel-nav.next {
+                right: 10px;
+            }
+
             .hero-section {
-                padding: 40px 16px 60px;
+                padding: 30px 16px 40px;
             }
 
             .section-header {
@@ -428,6 +604,10 @@
         }
 
         @media (max-width: 576px) {
+            .banner-slide {
+                height: 280px;
+            }
+
             .manga-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 16px;
@@ -450,6 +630,47 @@
 
 @section('content')
     <div class="main-content">
+        <!-- Banner Carousel -->
+        <div class="banner-section">
+            <div class="banner-carousel">
+                <div class="banner-slide active">
+                    <img src="{{ asset('images/banner1.jpeg') }}" alt="Banner 1">
+                    <div class="banner-overlay"></div>
+                    <div class="banner-content">
+                        <h2 class="banner-title">Welcome to Manga Paradise</h2>
+                        <p class="banner-subtitle">Discover thousands of manga titles and join our growing community</p>
+                        <a href="{{ route('frontend.mangalist') }}" class="banner-btn">
+                            <i class="fas fa-book-open"></i> Explore Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="banner-slide">
+                    <img src="{{ asset('images/banner2.jpg') }}" alt="Banner 2">
+                    <div class="banner-overlay"></div>
+                    <div class="banner-content">
+                        <h2 class="banner-title">Your Next Adventure Awaits</h2>
+                        <p class="banner-subtitle">From action-packed stories to heartwarming tales</p>
+                        <a href="{{ route('register') }}" class="banner-btn">
+                            <i class="fas fa-compass"></i> Start Reading
+                        </a>
+                    </div>
+                </div>
+
+                <div class="carousel-nav prev" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="carousel-nav next" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+
+                <div class="carousel-indicators">
+                    <div class="indicator active" onclick="goToSlide(0)"></div>
+                    <div class="indicator" onclick="goToSlide(1)"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- Hero Section -->
         <div class="hero-section">
             <h1>
@@ -476,7 +697,6 @@
                 <div class="manga-grid">
                     @foreach ($latestManga as $manga)
                         <div class="manga-card">
-                            <!-- Cover -->
                             <div class="card-thumbnail">
                                 @if ($manga->cover_img)
                                     <img src="{{ asset('storage/' . $manga->cover_img) }}" alt="{{ $manga->title }}">
@@ -489,7 +709,6 @@
                                 <span class="manga-badge">{{ $manga->type ?? 'Manga' }}</span>
                             </div>
 
-                            <!-- Card Content -->
                             <div class="card-content">
                                 <h3 class="card-title">{{ $manga->title }}</h3>
 
@@ -511,6 +730,9 @@
                                         @empty
                                             <span class="genre-badge">Unknown</span>
                                         @endforelse
+                                        @if ($manga->genres->count() > 2)
+                                            <span class="genre-badge">+{{ $manga->genres->count() - 2 }}</span>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -557,7 +779,7 @@
             @endif
         </div>
 
-        <!-- Popular Manga Section (if you have it) -->
+        <!-- Popular Manga Section -->
         @if (isset($popularManga) && $popularManga->count() > 0)
             <div class="section-header">
                 <h2 class="section-title">
@@ -572,9 +794,8 @@
 
             <div class="manga-container">
                 <div class="manga-grid">
-                    @foreach ($latestManga as $manga)
+                    @foreach ($popularManga as $manga)
                         <div class="manga-card">
-                            <!-- Cover -->
                             <div class="card-thumbnail">
                                 @if ($manga->cover_img)
                                     <img src="{{ asset('storage/' . $manga->cover_img) }}" alt="{{ $manga->title }}">
@@ -587,7 +808,6 @@
                                 <span class="manga-badge">{{ $manga->type ?? 'Manga' }}</span>
                             </div>
 
-                            <!-- Card Content -->
                             <div class="card-content">
                                 <h3 class="card-title">{{ $manga->title }}</h3>
 
@@ -609,6 +829,9 @@
                                         @empty
                                             <span class="genre-badge">Unknown</span>
                                         @endforelse
+                                        @if ($manga->genres->count() > 2)
+                                            <span class="genre-badge">+{{ $manga->genres->count() - 2 }}</span>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -659,8 +882,58 @@
 
 @push('scripts')
     <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            currentSlide = (n + totalSlides) % totalSlides;
+
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        let autoSlideInterval = setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        const carousel = document.querySelector('.banner-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                autoSlideInterval = setInterval(() => {
+                    changeSlide(1);
+                }, 5000);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Hero section fade in
+            const bannerSection = document.querySelector('.banner-section');
+            if (bannerSection) {
+                bannerSection.style.opacity = '0';
+                bannerSection.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    bannerSection.style.transition = 'all 0.8s ease';
+                    bannerSection.style.opacity = '1';
+                    bannerSection.style.transform = 'translateY(0)';
+                }, 100);
+            }
+
             const heroSection = document.querySelector('.hero-section');
             if (heroSection) {
                 heroSection.style.opacity = '0';
@@ -669,10 +942,9 @@
                     heroSection.style.transition = 'all 0.8s ease';
                     heroSection.style.opacity = '1';
                     heroSection.style.transform = 'translateY(0)';
-                }, 100);
+                }, 300);
             }
 
-            // Section headers fade in
             const sectionHeaders = document.querySelectorAll('.section-header');
             sectionHeaders.forEach((header, index) => {
                 header.style.opacity = '0';
@@ -681,7 +953,7 @@
                     header.style.transition = 'all 0.6s ease';
                     header.style.opacity = '1';
                     header.style.transform = 'translateY(0)';
-                }, 200 + (index * 100));
+                }, 500 + (index * 100));
             });
         });
     </script>
