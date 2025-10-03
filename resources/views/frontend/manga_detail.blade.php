@@ -3,131 +3,119 @@
 @section('title', $manga->title)
 
 @section('content')
-    <style>
-        :root {
-            --bg-0: #121212;
-            --bg-1: #161616;
-            --bg-2: #1a1a1a;
-            --glass: rgba(255, 255, 255, .04);
-            --white: #ffffff;
-            --muted: #a6a6a6;
-            --accent: #FF4C00;
-            --shadow: 0 10px 30px rgba(0, 0, 0, .45);
-            --radius: 16px;
-        }
-
-        body {
-            background: #121212;
-            font-family: 'Poppins', 'Inter', sans-serif;
-            color: #f1f1f1;
-        }
+<style>
+    :root {
+    --bg-0: #121212;
+    --bg-1: #161616;
+    --bg-2: #1a1a1a;
+    --glass: rgba(255,255,255,.04);
+    --white: #ffffff;
+    --muted: #a6a6a6;
+    --accent: #ff6b47;
+    --shadow: 0 10px 30px rgba(0,0,0,.45);
+    --radius: 16px;
+    }
+    body {
+        background: #121212;
+        font-family: 'Poppins', 'Inter', sans-serif;
+        color: #f1f1f1;
+    }
 
         .text-author {
             color: var(--muted) !important;
         }
 
-        /* Glass card */
-        .glass-card {
-            background: rgba(30, 30, 30, 0.7);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-            margin-bottom: 24px;
-        }
+    /* Glass card */
+    .glass-card {
+        background: rgba(30, 30, 30, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        margin-bottom: 24px;
+    }
 
-        /* Section headers */
-        .section-header {
-            font-weight: bold;
-            padding: 10px 16px;
-            border-left: 5px solid #FF4C00;
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(6px);
-            border-radius: 8px;
-            margin: 24px 0 12px 0;
-            font-size: 1.05rem;
-        }
+    /* Section headers */
+    .section-header {
+        font-weight: bold;
+        padding: 10px 16px;
+        border-left: 5px solid #ff6b47;
+        background: rgba(26, 26, 26, 0.9);
+        backdrop-filter: blur(6px);
+        border-radius: 8px;
+        margin: 24px 0 12px 0;
+        font-size: 1.05rem;
+    }
 
-        /* Buttons */
-        .btn-orange {
-            background: #FF4C00;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 22px;
-            color: white;
-            font-weight: 600;
-            transition: all .3s ease;
-        }
+    /* Buttons */
+    .btn-orange {
+        background: #ff6b47;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 22px;
+        color: white;
+        font-weight: 600;
+        transition: all .3s ease;
+    }
+    .btn-orange:hover,
+    .btn-warning:hover {
+        box-shadow: 0 0 12px #ff6b47;
+        transform: scale(1.05);
+    }
+    .btn-warning {
+        background: #ff6b47;
+        border: none;
+        color: #fff;
+        border-radius: 30px !important;
+        font-weight: 600;
+    }
+    .btn-danger {
+        border-radius: 30px !important;
+        font-weight: 600;
+    }
 
-        .btn-orange:hover,
-        .btn-warning:hover {
-            box-shadow: 0 0 12px #FF4C00;
-            transform: scale(1.05);
-        }
+    .cover-img {
+    width: 100%;
+    max-width: 450px;   /* ความกว้างสูงสุด */
+    height: 550px;      /* บังคับสูงแนวตั้ง */
+    object-fit: cover;  /* ครอบตัดไม่บิด */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
 
-        .btn-warning {
-            background: #FF4C00;
-            border: none;
-            color: #fff;
-            border-radius: 30px !important;
-            font-weight: 600;
-        }
+    /* Tags */
+    .tag-pill {
+        display: inline-block;
+        background: #ff6b47;
+        color: white;
+        border-radius: 20px;
+        padding: 4px 12px;
+        margin: 2px 6px 0 0;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
 
-        .btn-danger {
-            border-radius: 30px !important;
-            font-weight: 600;
-        }
+    /* Stars */
+    .star {
+        font-size: 1.2rem;
+        color: #ff6b47;
+        cursor: pointer;
+    }
+    .star.inactive { color: #555; }
 
-        .cover-img {
-            width: 100%;
-            max-width: 450px;
-            /* ความกว้างสูงสุด */
-            height: 550px;
-            /* บังคับสูงแนวตั้ง */
-            object-fit: cover;
-            /* ครอบตัดไม่บิด */
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Tags */
-        .tag-pill {
-            display: inline-block;
-            background: #FF4C00;
-            color: white;
-            border-radius: 20px;
-            padding: 4px 12px;
-            margin: 2px 6px 0 0;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* Stars */
-        .star {
-            font-size: 1.2rem;
-            color: #FF4C00;
-            cursor: pointer;
-        }
-
-        .star.inactive {
-            color: #555;
-        }
-
-        /* Inputs */
-        textarea,
-        input[type=number] {
-            background: #1e1e1e;
-            border: none;
-            color: #f1f1f1;
-            border-radius: 12px;
-            padding: 10px;
-            width: 100%;
-            border-color: var(--white);
-        }
-
-        textarea::placeholder {
-            color: #888;
-        }
+    /* Inputs */
+    textarea, input[type=number] {
+        background: #1e1e1e;
+        border: none;
+        color: #f1f1f1;
+        border-radius: 12px;
+        padding: 10px;
+        width: 100%;
+        border-color: var(--white);
+    }
+    textarea::placeholder {
+        color: #888;
+    }
 
         .review-card {
             background: #1f1f1f;
@@ -158,6 +146,20 @@
             flex-shrink: 0;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
+.review-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #ff6b47;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
 
         .review-username {
             font-weight: 600;
@@ -177,6 +179,16 @@
         .review-stars .inactive {
             color: #555;
         }
+.review-stars {
+    margin: 2px 0;
+}
+.review-stars .star {
+    font-size: 1rem;
+    color: #ff6b47;
+}
+.review-stars .inactive {
+    color: #555;
+}
 
         .review-time {
             font-size: 0.8rem;

@@ -20,10 +20,10 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|min:3|unique:users,username,' . $user->user_id . ',user_id',
-            'email'    => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
-            'name'     => 'nullable|string|max:100',
-            'password' => 'nullable|min:6|confirmed',
+            'username'    => 'required|min:3|unique:users,username,' . $user->user_id . ',user_id',
+            'email'       => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
+            'name'        => 'nullable|string|max:100',
+            'password'    => 'nullable|min:6|confirmed',
             'profile_img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -56,7 +56,15 @@ class ProfileController extends Controller
 
     public function show()
     {
-        $user = Auth::user();
-        return view('frontend.profile.show', compact('user'));
+        // ✅ ต้องดึง user ก่อน
+        $user = Auth::user()->loadCount(['favorites', 'reviews']);
+
+        // ✅ ดึง favorites ของ user
+        $favorites = \App\Models\FavoriteModel::with('manga')
+            ->where('user_id', $user->user_id)
+            ->latest('favorite_id')
+            ->paginate(12);
+
+        return view('frontend.profile.show', compact('user', 'favorites'));
     }
 }

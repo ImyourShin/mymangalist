@@ -80,4 +80,7 @@ class DashboardController extends Controller
             'dailyFavorites'
         ));
     }
+
+    
+
 }

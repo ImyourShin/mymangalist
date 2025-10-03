@@ -7,18 +7,18 @@
 @endsection
 
 @section('css_before')
-    <style>
-        :root {
-            --bg-900: #0d0d0d;
-            --bg-800: #1a1a1a;
-            --text-100: #f5f5f7;
-            --text-70: #b3b3b3;
-            --accent: #FF4C00;
-            --danger: #d33;
-            --radius: 14px;
-            --shadow-soft: 0 6px 20px rgba(0, 0, 0, .45);
-            --font: 'Poppins', 'Inter', sans-serif;
-        }
+<style>
+:root {
+  --bg-900:#0d0d0d;
+  --bg-800:#1a1a1a;
+  --text-100:#f5f5f7;
+  --text-70:#b3b3b3;
+  --accent:#ff6b47;
+  --danger:#d33;
+  --radius:14px;
+  --shadow-soft:0 6px 20px rgba(0,0,0,.45);
+  --font:'Poppins','Inter',sans-serif;
+}
 
         body {
             font-family: var(--font);
@@ -89,13 +89,14 @@
             margin-top: .25rem;
         }
 
-        /* ===== Buttons ===== */
-        .btn {
-            border-radius: 999px;
-            font-weight: 600;
-            padding: .5rem 1.25rem;
-            transition: 0.25s ease;
-        }
+.btn-primary {
+  background: var(--accent);
+  border: none;
+}
+.btn-primary:hover {
+  background: #ff6b47;
+  box-shadow: 0 0 10px #ff8e53;
+}
 
         .btn-primary {
             background: var(--accent);

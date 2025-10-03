@@ -26,6 +26,8 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
+    
+
     // Insert User ใหม่
     public function create(Request $request)
     {

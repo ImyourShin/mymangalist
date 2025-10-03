@@ -9,8 +9,8 @@
   --bg-panel: #1d1d1d;
   --bg-elev: #1a1a1a;
 
-  --accent:#FF4C00;
-  --accent-grad: linear-gradient(90deg,#FF4C00,#ff8e53);
+  --accent:#ff6b47;
+  --accent-grad: linear-gradient(90deg,#e55a2b,#ff8e53);
 
   --text-100:#f5f5f7;
   --text-70:#b3b3b3;
